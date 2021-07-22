@@ -94,6 +94,8 @@ usage() {
     printf "${SPACES}${SPACES}install Cybereason .\n\n"
     printf "${SPACES}${BOLD}-i${NORMAL}, ${BOLD}--aras${NORMAL}\n"
     printf "${SPACES}${SPACES}install Aras .\n\n"
+    printf "${SPACES}${BOLD}-v${NORMAL}, ${BOLD}--vysor${NORMAL}\n"
+    printf "${SPACES}${SPACES}install Vysor .\n\n"
 }
 
 is_package_installed() {

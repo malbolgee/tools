@@ -53,6 +53,10 @@ while (("$#")); do
         flags+=([aras]=./arasinstall.sh)
         shift
         ;;
+    -v | --vysor)
+        flags+=([vysor]=./vysor.sh)
+        shift
+        ;;
     -* | --*=) # unsupported flags
         fe "Unsupported flag $1" >&2
         exit 1
