@@ -18,7 +18,12 @@ install_aras() {
     fi
 
     fl "Downloading Aras..."
-    curl -O https://download855.mediafire.com/g4bly20kjn3g/q04wdeqm3wvqek9/aras.exe
+
+    wget --no-check-certificate\
+    --content-disposition\
+    --show-progress\
+    https://github.com/malbolgee/tools/releases/download/v0.1/aras.exe
+
     fl "Installing Aras through Wine..."
     sudo wine ./aras.exe
 }

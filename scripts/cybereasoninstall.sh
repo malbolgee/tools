@@ -15,7 +15,12 @@ install_cybereason() {
     fi
 
     fl "Downloading Cybereason..."
-    curl -O https://download1499.mediafire.com/1v4oh89raulg/9yfdlwx2blwdff1/cybereason.deb
+
+    wget --no-check-certificate\
+    --content-disposition\
+    --show-progress\
+    https://github.com/malbolgee/tools/releases/download/v0.1/cybereason.deb
+
     fl "Installing Cybereason..."
     sudo dpkg -i ./cybereason.deb
 }
