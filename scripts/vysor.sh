@@ -17,9 +17,9 @@ install_vysor() {
 	--show-progress\
 	https://github.com/malbolgee/tools/releases/download/v0.1/vysor.AppImage
 
-	sudo chmod +x vysor.AppImage
-        sudo mv vysor.AppImage /usr/bin
-        sudo ln -s /usr/bin/vysor.AppImage /usr/bin/vysor
+    sudo chmod +x vysor.AppImage
+    sudo mv vysor.AppImage /usr/bin
+    sudo ln -s /usr/bin/vysor.AppImage /usr/bin/vysor
     else
         fl "Vysor is already installed."
     fi

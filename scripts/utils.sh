@@ -50,7 +50,7 @@ fs() {
 #
 path_export() {
     if [ -f $BASHRC_PATH ]; then
-        if ! grep -qE "$1\$" $BASHRC_PATH; then # Returns 0 if something was found; 1 if not;
+        if ! grep -qE "$1\$" $BASHRC_PATH; then
             if [ -d $1 ]; then
                 echo "export PATH=\$PATH:$1" >> $BASHRC_PATH
                 fs "Directory '$1' successfully put into PATH."

@@ -27,7 +27,7 @@ while (("$#")); do
         . ./code.sh
         . ./cybereasoninstall.sh
         . ./arasinstall.sh
-	. ./vysor.sh
+        . ./vysor.sh
         exit 0
         ;;
     -l | --libs)

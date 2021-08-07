@@ -10,8 +10,6 @@
 #
 install_android_studio() {
 
-    # fl "Execution install_android_studio script"
-
     sudo add-apt-repository -y 'ppa:maarten-fonville/android-studio'
     sudo apt-get update
     fl "Installing Android Studio"

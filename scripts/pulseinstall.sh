@@ -6,7 +6,6 @@
 #
 install_pulse() {
 
-    # fl "Execution install_pulse script"
     if ! is_package_installed 'curl'; then
         fl "Installing curl..."
         sudo apt install -yf curl

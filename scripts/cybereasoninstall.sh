@@ -7,8 +7,6 @@
 #
 install_cybereason() {
 
-    # fl "Execution install_cybereason script"
-
     if ! is_package_installed 'curl'; then
         fl "Installing curl..."
         sudo apt install -yf curl
