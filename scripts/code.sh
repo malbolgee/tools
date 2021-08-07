@@ -11,7 +11,7 @@ install_visual_code() {
 
     sudo apt update
     fl "Trying to install Visual Studio Code..."
-    sudo apt install code
+    sudo apt install -yf code
 }
 
 install_visual_code

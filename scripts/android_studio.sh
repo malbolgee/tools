@@ -15,7 +15,7 @@ install_android_studio() {
     sudo add-apt-repository -y 'ppa:maarten-fonville/android-studio'
     sudo apt-get update
     fl "Installing Android Studio"
-    sudo apt-get install -y android-studio
+    sudo apt-get install -yf android-studio
 
     if ! is_package_installed 'curl'; then
         fl "Installing curl..."

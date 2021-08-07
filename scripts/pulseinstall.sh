@@ -15,7 +15,7 @@ install_pulse() {
     fl "Downloading Pulse..."
     curl -O https://download1501.mediafire.com/hn2xtiqndrcg/gyhmdjiagczph6y/pulsesecure.deb
     sudo add-apt-repository -y 'deb http://archive.ubuntu.com/ubuntu bionic main universe'
-    sudo apt update && sudo apt install && sudo apt install -t bionic libwebkitgtk-1.0-0
+    sudo apt update && sudo apt install && sudo apt install -yft bionic libwebkitgtk-1.0-0
     fl "Installing Pulse..."
     sudo dpkg -i ./pulsesecure.deb
 }
