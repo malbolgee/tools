@@ -12,6 +12,7 @@ install_vysor() {
     if ! is_package_installed 'vysor'; then
         fl "Downloading Vysor..."
         curl -O https://download1593.mediafire.com/bg63ppq0l1ug/iqqmn38rviyahfj/vysor.AppImage
+	sudo chmod +x vysor.AppImage
         sudo mv vysor.AppImage /usr/bin
         sudo ln -s /usr/bin/vysor.AppImage /usr/bin/vysor
     else
