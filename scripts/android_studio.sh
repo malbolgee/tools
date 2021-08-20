@@ -15,6 +15,43 @@ install_android_studio() {
     fl "Installing Android Studio"
     sudo apt-get install -yf android-studio
 
+    cr=`echo $'\n.'`
+    cr=${cr%.}
+    prompt="Are you sure? 'platform-tools' directory won't be put into PATH if you proceed.${cr}"
+    prompt="${prompt}This means that you won't be able to use tools like adb or fastboot right off the bat. [Y/n] "
+
+    while true; do
+        read -p "Do you want to setup Android Studio now? [Y/n] " yn
+        case $yn in
+            [Yy]* )
+                lunch_android_studio_and_export
+                break
+                ;;
+            [Nn]* )
+                while true; do
+                    read -p "${prompt}" yn
+                    case $yn in
+                        [Yy]* )
+                            fl "Continuing without the export."
+                            break
+                            ;;
+                        [Nn]* )
+                            lunch_android_studio_and_export
+                            break
+                            ;;
+                        * )
+                            fe "Please answer yes or no."
+                            ;;
+                    esac
+                done
+                break
+                ;;
+            * )
+                fe "Please answer yes or no."
+                ;;
+        esac
+    done
+
     if ! is_package_installed 'curl'; then
         fl "Installing curl..."
         sudo apt install -yf curl
@@ -27,6 +64,15 @@ install_android_studio() {
     # The fwupd linux service somehow interferes with the fastboot process. We
     # need to disable it.
     stop_service fwupd
+}
+
+lunch_android_studio_and_export() {
+    fl "Launching Android Studio Setup Wizard"
+    /opt/android-studio/bin/./studio.sh
+    clear
+
+    # here we are counting on that the user has completed the
+    # setup wizard, otherwise, the export will fail.
     path_export "$HOME/Android/Sdk/platform-tools"
 }
 
