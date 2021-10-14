@@ -28,6 +28,7 @@ while (("$#")); do
         . ./cybereasoninstall.sh
         . ./arasinstall.sh
         . ./vysor.sh
+        . ./tmux.sh
         exit 0
         ;;
     -l | --libs)
@@ -56,6 +57,10 @@ while (("$#")); do
         ;;
     -v | --vysor)
         flags+=([vysor]=./vysor.sh)
+        shift
+        ;;
+    -t | --tmux)
+        flags+=([tmux]=./tmux.sh)
         shift
         ;;
     -* | --*=) # unsupported flags

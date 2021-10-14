@@ -96,6 +96,8 @@ usage() {
     printf "${SPACES}${SPACES}install Aras .\n\n"
     printf "${SPACES}${BOLD}-v${NORMAL}, ${BOLD}--vysor${NORMAL}\n"
     printf "${SPACES}${SPACES}install Vysor .\n\n"
+    printf "${SPACES}${BOLD}-t${NORMAL}, ${BOLD}--tmux${NORMAL}\n"
+    printf "${SPACES}${SPACES}install tmux .\n\n"
 }
 
 is_package_installed() {
