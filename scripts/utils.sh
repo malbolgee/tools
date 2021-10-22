@@ -70,6 +70,8 @@ stop_service() {
     sudo systemctl stop $1.service
     fl "Trying to disable ${1} service"
     sudo systemctl disable $1.service
+    fl "Trying to mask ${1} service"
+    sudo systemctl mask ${1}.service
 }
 
 usage() {
