@@ -94,8 +94,6 @@ usage() {
     printf "${SPACES}${SPACES}install Visual Studio Code .\n\n"
     printf "${SPACES}${BOLD}-r${NORMAL}, ${BOLD}--cyber${NORMAL}\n"
     printf "${SPACES}${SPACES}install Cybereason .\n\n"
-    printf "${SPACES}${BOLD}-i${NORMAL}, ${BOLD}--aras${NORMAL}\n"
-    printf "${SPACES}${SPACES}install Aras .\n\n"
     printf "${SPACES}${BOLD}-v${NORMAL}, ${BOLD}--vysor${NORMAL}\n"
     printf "${SPACES}${SPACES}install Vysor .\n\n"
     printf "${SPACES}${BOLD}-t${NORMAL}, ${BOLD}--tmux${NORMAL}\n"

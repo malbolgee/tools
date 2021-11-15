@@ -26,7 +26,6 @@ This script has several flags of options:
 > **-A, --android** - Install Android Studio.<br>
 > **-c, --code** - Install Visual Studio Code.<br>
 > **-r, --cyber** - Install Cyberreason program.<br>
-> **-i, --aras** - Install Aras program.<br>
 > **-v, --vysor** - Install Vysor program.<br>
 > **-h, --help** - show how to use the program.<br>
 

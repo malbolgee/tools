@@ -26,7 +26,6 @@ while (("$#")); do
         . ./android_studio.sh
         . ./code.sh
         . ./cybereasoninstall.sh
-        . ./arasinstall.sh
         . ./vysor.sh
         . ./tmux.sh
         exit 0
@@ -49,10 +48,6 @@ while (("$#")); do
         ;;
     -r | --cyber)
         flags+=([cyber]=./cybereasoninstall.sh)
-        shift
-        ;;
-    -i | --aras)
-        flags+=([aras]=./arasinstall.sh)
         shift
         ;;
     -v | --vysor)
