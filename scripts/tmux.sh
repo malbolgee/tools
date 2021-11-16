@@ -8,7 +8,7 @@ install_tmux() {
 
     sudo apt install -yf tmux
 
-    git clone https://malbolge.dev.br/malbolge/dotfiles.git DOTFILES_PATH
+    git clone https://malbolge.dev.br/malbolge/dotfiles.git ${DOTFILES_PATH}
     git -C ${DOTFILES_PATH} checkout main
 
     echo "source-file ${DOTFILES_PATH}/.tmux.conf" >> ${CONF_FILE_PATH}
