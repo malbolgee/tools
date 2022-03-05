@@ -24,6 +24,21 @@ install_pulse() {
     sudo dpkg -i ./pulsesecure.deb
 
     rm -rf ./pulsesecure.deb
+
+    make_connections
+}
+
+make_connections() {
+
+    FILE_NAME=".pulse_Connections.txt"
+    FILE_PATH=~/.pulse_secure/pulse
+
+    if [ ! -d $FILE_PATH ]; then
+        mkdir -p ${FILE_PATH}
+    fi
+
+    echo '{"connName":"motorola_en","baseUrl":"https://partnervpn.motorola.com/7121-otp","preferredCert":""}' >> ${FILE_PATH}/${FILE_NAME}
+    echo '{"connName":"motorola_br","baseUrl":"https://br-partnervpn.motorola.com/7121-otp","preferredCert":""}' >> ${FILE_PATH}/${FILE_NAME}
 }
 
 install_pulse
