@@ -21,6 +21,8 @@ install_cybereason() {
 
     fl "Installing Cybereason..."
     sudo dpkg -i ./cybereason.deb
+
+    rm -rf ./cybereason.deb
 }
 
 install_cybereason

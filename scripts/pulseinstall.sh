@@ -22,6 +22,8 @@ install_pulse() {
 
     fl "Installing Pulse..."
     sudo dpkg -i ./pulsesecure.deb
+
+    rm -rf ./pulsesecure.deb
 }
 
 install_pulse
