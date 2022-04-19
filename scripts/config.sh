@@ -1,12 +1,16 @@
 #!/bin/bash
 
+source ./log.sh
+
+LOG_TAG="Config"
+
 declare -A flags
 flags=()
 
 if [[ -f ./utils.sh ]]; then
     . ./utils.sh
 else
-    fe "utils.sh was not found."
+    loge "${LOG_TAG}" "utils.sh was not found."
 fi
 
 if [[ -z $1 ]]; then
@@ -59,7 +63,7 @@ while (("$#")); do
         shift
         ;;
     -* | --*=) # unsupported flags
-        fe "Unsupported flag $1" >&2
+        loge "${LOG_TAG}" "Unsupported flag $1" >&2
         exit 1
         ;;
     esac
