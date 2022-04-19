@@ -4,49 +4,12 @@ source ./log.sh
 
 LOG_TAG="Utils"
 
-RED="\e[31m"
-YELLOW="\e[33m"
-GREEN="\e[32m"
-BLUE="\e[34m"
-ENDCOLOR="\e[0m"
-BOLD="\e[1m"
-UNDERLINE="\e[4m"
+BOLD=$(tput bold)
+UNDERLINE=$(tput smul)
 SPACES="       "
-NORMAL=$ENDCOLOR
+NORMAL=$(tput sgr0)
 
 BASHRC_PATH="$HOME/.bashrc"
-
-# Log error messages
-#
-# @param $1 Is the message to be logged.
-#
-fe() {
-    echo -e "${RED}Error${ENDCOLOR}: $1"
-}
-
-# Log warning messages
-#
-# @param $1 Is the message to be logged.
-#
-fw() {
-    echo -e "${YELLOW}Warning${ENDCOLOR}: $1"
-}
-
-# Log info messages
-#
-# @param $1 Is the message to be logged.
-#
-fl() {
-    echo -e "${BLUE}Info${ENDCOLOR}: $1"
-}
-
-# Log success messages
-#
-# @param $1 Is the message to be logged.
-#
-fs() {
-    echo -e "${GREEN}Success${ENDCOLOR}: $1"
-}
 
 # Export to PATH a directory passed as argument
 #
@@ -55,7 +18,7 @@ fs() {
 path_export() {
 	if [ -f "$BASHRC_PATH" ]; then
 		if ! grep -qE "$1\$" "$BASHRC_PATH"; then
-				if [ -d "$1" ]; then
+			if [ -d "$1" ]; then
 				echo "export PATH=\$PATH:$1" >> "$BASHRC_PATH"
 				logi "${LOG_TAG}" "Directory $1 successfully put into PATH."
 			else
@@ -79,31 +42,31 @@ stop_service() {
 }
 
 usage() {
-    printf "${BOLD}NAME${NORMAL}\n"
-    printf "${SPACES}config - Motorola ThinkShield Script Configuration\n\n"
-    printf "${BOLD}SYNOPSIS${NORMAL}\n"
-    printf "${SPACES}${BOLD}config${NORMAL} <${UNDERLINE}OPTION${NORMAL}>\n\n"
-    printf "${BOLD}DESCRIPTION${NORMAL}\n"
-    printf "${SPACES}Configuration Script file for the Motorola ThinkShield Team. The script handles the installation of several services and tools used by the team in a daily basis.\n\n"
+	printf "%sNAME%s\\n" "${BOLD}" "${NORMAL}"
+	printf "%sconfig - Motorola ThinkShield Script Configuration\\n\\n" "${SPACES}"
+	printf "%sSYNOPSIS%s\\n" "${BOLD}" "${NORMAL}"
+	printf "%s%sconfig%s <%sOPTION%s>\\n\\n" "${SPACES}" "${BOLD}" "${NORMAL}" "${UNDERLINE}" "${NORMAL}"
+	printf "%sDESCRIPTION%s\\n" "${BOLD}" "${NORMAL}"
+	printf "%sConfiguration Script file for the Motorola ThinkShield Team. The script handles the installation of several services and tools used by the team in a daily basis.\\n\\n" "${SPACES}"
 
-    printf "${SPACES}${BOLD}-a${NORMAL}, ${BOLD}--all${NORMAL}\n"
-    printf "${SPACES}${SPACES}install and configure everything .\n\n"
-    printf "${SPACES}${BOLD}-l${NORMAL}, ${BOLD}--libs${NORMAL}\n"
-    printf "${SPACES}${SPACES}install all the libs necessary to the tools and services .\n\n"
-    printf "${SPACES}${BOLD}-p${NORMAL}, ${BOLD}--pulse${NORMAL}\n"
-    printf "${SPACES}${SPACES}install Pulsesecure .\n\n"
-    printf "${SPACES}${BOLD}-A${NORMAL}, ${BOLD}--android${NORMAL}\n"
-    printf "${SPACES}${SPACES}install Android Studio and makes all the necessary configurations .\n\n"
-    printf "${SPACES}${BOLD}-c${NORMAL}, ${BOLD}--code${NORMAL}\n"
-    printf "${SPACES}${SPACES}install Visual Studio Code .\n\n"
-    printf "${SPACES}${BOLD}-r${NORMAL}, ${BOLD}--cyber${NORMAL}\n"
-    printf "${SPACES}${SPACES}install Cybereason .\n\n"
-    printf "${SPACES}${BOLD}-v${NORMAL}, ${BOLD}--vysor${NORMAL}\n"
-    printf "${SPACES}${SPACES}install Vysor .\n\n"
-    printf "${SPACES}${BOLD}-t${NORMAL}, ${BOLD}--tmux${NORMAL}\n"
-    printf "${SPACES}${SPACES}install tmux .\n\n"
+	printf "%s%s-a%s, %s--all%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}" "${BOLD}" "${NORMAL}"
+	printf "%s%sinstall and configure everything .\\n\\n" "${SPACES}" "${SPACES}"
+	printf "%s%s-l%s, %s--libs%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}" "${BOLD}" "${NORMAL}"
+	printf "%s%sinstall all the libs necessary to the tools and services .\\n\\n" "${SPACES}" "${SPACES}"
+	printf "%s%s-p%s, %s--pulse%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}" "${BOLD}" "${NORMAL}"
+	printf "%s%sinstall Pulsesecure .\\n\\n" "${SPACES}" "${SPACES}"
+	printf "%s%s-A%s, %s--android%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}" "${BOLD}" "${NORMAL}"
+	printf "%s%sinstall Android Studio and makes all the necessary configurations .\\n\\n" "${SPACES}" "${SPACES}"
+	printf "%s%s-c%s, %s--code%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}" "${BOLD}" "${NORMAL}"
+	printf "%s%sinstall Visual Studio Code .\\n\\n" "${SPACES}" "${SPACES}"
+	printf "%s%s-r%s, %s--cyber%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}" "${BOLD}" "${NORMAL}"
+	printf "%s%sinstall Cybereason .\\n\\n" "${SPACES}" "${SPACES}"
+	printf "%s%s-v%s, %s--vysor%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}" "${BOLD}" "${NORMAL}"
+	printf "%s%sinstall Vysor .\\n\\n" "${SPACES}" "${SPACES}"
+	printf "%s%s-t%s, %s--tmux%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}" "${BOLD}" "${NORMAL}"
+	printf "%s%sinstall tmux .\\n\\n" "${SPACES}" "${SPACES}"
 }
 
 is_package_installed() {
-    ! [[ $(command -v $1) = "" ]]
+    ! [[ $(command -v "$1") = "" ]]
 }
