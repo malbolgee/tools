@@ -1,5 +1,9 @@
 #!/bin/bash
 
+source ./log.sh
+
+LOG_TAG="Vistual Studio Install"
+
 install_visual_code() {
 
     wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >packages.microsoft.gpg
@@ -8,8 +12,8 @@ install_visual_code() {
     rm -f packages.microsoft.gpg
 
     sudo apt update
-    fl "Trying to install Visual Studio Code..."
-    sudo apt install -yf code
+    logi "${LOG_TAG}" "Trying to install Visual Studio Code..."
+    sudo apt install -yf code && logi "${LOG_TAG}" "Vistual Studio Code successfully installed!"
 }
 
 install_visual_code
