@@ -1,5 +1,9 @@
 #!/bin/bash
 
+source ./log.sh
+
+LOG_TAG="Utils"
+
 RED="\e[31m"
 YELLOW="\e[33m"
 GREEN="\e[32m"
@@ -49,29 +53,29 @@ fs() {
 # @param $1 Is the path to be placed in the PATH.
 #
 path_export() {
-    if [ -f $BASHRC_PATH ]; then
-        if ! grep -qE "$1\$" $BASHRC_PATH; then
-            if [ -d $1 ]; then
-                echo "export PATH=\$PATH:$1" >> $BASHRC_PATH
-                fs "Directory '$1' successfully put into PATH."
-            else
-                fe "The directory '$1' does not exist. Unable to put it into PATH."
-            fi
-        else
-            fw "The .bashrc file already has this directory."
-        fi
-    else
-        fe "The bashrc file does not exist. Unable to put it into PATH."
-    fi
+	if [ -f "$BASHRC_PATH" ]; then
+		if ! grep -qE "$1\$" "$BASHRC_PATH"; then
+				if [ -d "$1" ]; then
+				echo "export PATH=\$PATH:$1" >> "$BASHRC_PATH"
+				logi "${LOG_TAG}" "Directory $1 successfully put into PATH."
+			else
+				loge "${LOG_TAG}" "The directory $1 does not exist. Unable to put it into PATH."
+			fi
+		else
+			logw "${LOG_TAG}" "The .bashrc file already has this directory."
+		fi
+	else
+		loge "${LOG_TAG}" "The bashrc file does not exist. Unable to put it into PATH."
+	fi
 }
 
 stop_service() {
-    fl "Trying to stop ${1} service"
-    sudo systemctl stop $1.service
-    fl "Trying to disable ${1} service"
-    sudo systemctl disable $1.service
-    fl "Trying to mask ${1} service"
-    sudo systemctl mask ${1}.service
+	logi "${LOG_TAG}" "Trying to stop ${1} service"
+	sudo systemctl stop "$1".service
+	logi "${LOG_TAG}" "Trying to disable ${1} service"
+	sudo systemctl disable "$1".service
+	logi "${LOG_TAG}" "Trying to mask ${1} service"
+	sudo systemctl mask "${1}".service
 }
 
 usage() {
