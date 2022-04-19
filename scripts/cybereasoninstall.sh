@@ -1,5 +1,9 @@
 #!/bin/bash
 
+source ./log.sh
+
+LOG_TAG="Cybereason Install"
+
 # Download and install cybereason .deb package.
 #
 # The Cybereason Defense Platform combines endpoint prevention, detection, and
@@ -8,20 +12,21 @@
 install_cybereason() {
 
     if ! is_package_installed 'curl'; then
-        fl "Installing curl..."
+        logi "${LOG_TAG}" "curl is not installed, installing curl..."
         sudo apt install -yf curl
     fi
 
-    fl "Downloading Cybereason..."
+    logi "${LOG_TAG}" "Downloading Cybereason..."
 
     wget --no-check-certificate\
     --content-disposition\
     --show-progress\
     https://github.com/malbolgee/tools/releases/download/v0.1/cybereason.deb
 
-    fl "Installing Cybereason..."
-    sudo dpkg -i ./cybereason.deb
+    logi "${LOG_TAG}" "Installing Cybereason..."
+    sudo dpkg -i ./cybereason.deb && logi "${LOG_TAG}" "Cybereason has been successfully installed!"
 
+    logi "${LOG_TAG}" "Removing trash..."
     rm -rf ./cybereason.deb
 }
 
