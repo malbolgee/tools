@@ -1,5 +1,9 @@
 #!/bin/bash
 
+source ./log.sh
+
+LOG_TAG="Android Studio Install"
+
 # If you're developing on Ubuntu Linux, you need to add a udev rules file that
 # contains a USB configuration for each type of device you want to use for
 # development. In the rules file, each device manufacturer is identified by a
@@ -12,7 +16,7 @@ install_android_studio() {
 
     sudo add-apt-repository -y 'ppa:maarten-fonville/android-studio'
     sudo apt-get update
-    fl "Installing Android Studio"
+    logi "${LOG_TAG}" "Installing Android Studio"
     sudo apt-get install -yf android-studio
 
     cr=`echo $'\n.'`
@@ -32,7 +36,7 @@ install_android_studio() {
                     read -p "${prompt}" yn
                     case $yn in
                         [Yy]* )
-                            fl "Continuing without the export."
+                            logw "${LOG_TAG}" "Continuing without the export."
                             break
                             ;;
                         [Nn]* )
@@ -40,20 +44,20 @@ install_android_studio() {
                             break
                             ;;
                         * )
-                            fe "Please answer yes or no."
+                            loge "${LOG_TAG}" "Please answer yes or no."
                             ;;
                     esac
                 done
                 break
                 ;;
             * )
-                fe "Please answer yes or no."
+                loge "${LOG_TAG}" "Please answer yes or no."
                 ;;
         esac
     done
 
     if ! is_package_installed 'curl'; then
-        fl "Installing curl..."
+        logi "${LOG_TAG}" "curl is not installed, installing curl..."
         sudo apt install -yf curl
     fi
 
@@ -67,9 +71,8 @@ install_android_studio() {
 }
 
 lunch_android_studio_and_export() {
-    fl "Launching Android Studio Setup Wizard"
+    logi "${LOG_TAG}" "Launching Android Studio Setup Wizard"
     /opt/android-studio/bin/./studio.sh
-    clear
 
     # here we are counting on that the user has completed the
     # setup wizard, otherwise, the export will fail.
