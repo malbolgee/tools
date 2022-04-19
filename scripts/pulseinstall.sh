@@ -1,5 +1,10 @@
 #!/bin/bash
 
+blue=$(tput setaf 4)
+normal=$(tput sgr0)
+
+LOG_TAG="pulseinstall"
+
 # Download and install pulsesecure .deb package.
 #
 # The pulsesecure software is necessary for the Motorola VPN connection.
@@ -26,19 +31,24 @@ install_pulse() {
     rm -rf ./pulsesecure.deb
 
     make_connections
+
+    printf "%sINFO%s::%s:: Pulse was successfully installed!\\n" "${blue}" "${normal}" "${LOG_TAG}"
 }
 
 make_connections() {
 
     FILE_NAME=".pulse_Connections.txt"
-    FILE_PATH=~/.pulse_secure/pulse
+    FILE_PATH="$HOME/.pulse_secure/pulse/"
 
-    if [ ! -d $FILE_PATH ]; then
-        mkdir -p ${FILE_PATH}
+    if [ ! -d "$FILE_PATH" ]; then
+        printf "%sINFO%s::%s:: Directory %s does not exist, creating it...\\n" "${blue}" "${normal}" "${LOG_TAG}" "${FILE_PATH}"
+        mkdir -p "${FILE_PATH}"
     fi
 
-    echo '{"connName":"motorola_en","baseUrl":"https://partnervpn.motorola.com/7121-otp","preferredCert":""}' >> ${FILE_PATH}/${FILE_NAME}
-    echo '{"connName":"motorola_br","baseUrl":"https://br-partnervpn.motorola.com/7121-otp","preferredCert":""}' >> ${FILE_PATH}/${FILE_NAME}
+    echo '{"connName":"motorola_en","baseUrl":"https://partnervpn.motorola.com/7121-otp","preferredCert":""}' >> "${FILE_PATH}"/${FILE_NAME}
+    echo '{"connName":"motorola_br","baseUrl":"https://br-partnervpn.motorola.com/7121-otp","preferredCert":""}' >> "${FILE_PATH}"/${FILE_NAME}
+
+    printf "%sINFO%s::%s:: Connections succssefully created!\\n" "${blue}" "${normal}" "${LOG_TAG}"
 }
 
 install_pulse
