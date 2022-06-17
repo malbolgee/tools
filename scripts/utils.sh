@@ -65,6 +65,8 @@ usage() {
 	printf "%s%sinstall Vysor .\\n\\n" "${SPACES}" "${SPACES}"
 	printf "%s%s-t%s, %s--tmux%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}" "${BOLD}" "${NORMAL}"
 	printf "%s%sinstall tmux .\\n\\n" "${SPACES}" "${SPACES}"
+	printf "%s%s-s%s, %s--ssh%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}" "${BOLD}" "${NORMAL}"
+	printf "%s%sconfigure ssh settings .\\n\\n" "${SPACES}" "${SPACES}"
 }
 
 is_package_installed() {

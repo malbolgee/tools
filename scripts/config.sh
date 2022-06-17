@@ -26,6 +26,7 @@ while (("$#")); do
         ;;
     -a | --all)
         . ./libs.sh
+        . ./ssh.sh
         . ./pulseinstall.sh
         . ./android_studio.sh
         . ./code.sh
@@ -60,6 +61,10 @@ while (("$#")); do
         ;;
     -t | --tmux)
         flags+=([tmux]=./tmux.sh)
+        shift
+        ;;
+    -s | --ssh)
+        flags+=([ssh]=./ssh.sh)
         shift
         ;;
     -* | --*=) # unsupported flags
