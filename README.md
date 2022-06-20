@@ -4,7 +4,7 @@
 
 This repository is a set of scripts aiming to help to easily create the development workspace needed for the team.
 
-In the scripts/ directory you will find several scripts in which the entry point is the config.sh file.
+In the scripts/ directory you will find several scripts in which the entry point is the ```config.sh``` file.
 
 Maybe you'll need to make this script executable:
 
@@ -27,7 +27,8 @@ This script has several flags of options:
 > **-c, --code** - Install Visual Studio Code.<br>
 > **-r, --cyber** - Install Cyberreason program.<br>
 > **-v, --vysor** - Install Vysor program.<br>
-> **-h, --help** - show how to use the program.<br>
+> **-s, --ssh** - Create the ssh key and set the config file.<br>
+> **-h, --help** - Show how to use the program.<br>
 
 *For now, this flags cannot be used concomitantly.*
 
