@@ -63,7 +63,7 @@ download_template_config_file() {
     wget --no-check-certificate\
     --content-disposition\
     --show-progress\
-    https://malbolge.dev.br/attachments/7c3ff4c0-be32-431a-9050-4ace408dc26e
+	https://github.com/malbolgee/tools/releases/download/v0.1/config
 }
 
 config_ssh
