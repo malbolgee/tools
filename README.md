@@ -50,9 +50,6 @@ After this script run, you'll be able to login into the build server just by typ
 $ ssh zbr|indt # zbr OR indt
 ```
 
-```zbr``` to login into the Jaguariúna build server
-```indt``` to login into the INDT build server
-
 ### Set your SSH key into the build server
 
 To set your SSH key into the build server and free yourself of the need to type your user and password every time, simply:
