@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./log.sh
+. ./log.sh
 
 LOG_TAG="SSH Config"
 
@@ -26,7 +26,7 @@ change_permissions() {
 
 add_key_to_authorized_keys() {
 	logi "${LOG_TAG}" "Adding key to authorized keys.."
-	cat id_"$COREID".pub >> authorized_keys
+	cat ~/.ssh/id_"$COREID".pub >> ~/.ssh/authorized_keys
 }
 
 prompt_coreid_question() {
