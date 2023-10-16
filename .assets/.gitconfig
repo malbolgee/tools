@@ -1,74 +1,73 @@
 [user]
-	name = coreid
-	email = coreid@motorola.com
-	location = zbr05
+      name = coreid
+      email = coreid@motorola.com
+      location = zbr05i
 [color]
-	ui = auto
+      ui = auto
 #
 #pull changes from Gerrit Slave
 #
-[url "ssh://zbr05git.mot.com:29418/"]
-	insteadOf=ssh://gerrit.pcs.mot.com:29418/
-	insteadOf=ssh://gerrit.mot.com:29418/
-	insteadOf=ssh://gerrit.blurdev.com:29418/
-	insteadOf=ssh://git.blurdev.com:29418/
-	insteadOf=ssh://gerrit.pcs.mot.com/
-	insteadOf=ssh://gerrit.mot.com/
-	insteadOf=ssh://gerrit.blurdev.com/
-	insteadOf=ssh://git.blurdev.com/
-	insteadOf=ssh://git.blurdev.com/proj/repo01/blur_gerrit_mirror/
-	insteadOf=ssh://gerrit.blurdev.com/proj/repo01/blur_gerrit_mirror/
-	insteadOf=file:///proj/repo01/gerrit/
-	insteadOf=/proj/repo01/gerrit/
-	insteadOf=file:///proj/repo01/blur_gerrit_mirror/
-	insteadOf=/proj/repo01/blur_gerrit_mirror/
-	insteadOf=ssh://zbr05git.mot.com/proj/repo01/gerrit/
-	insteadOf=ssh://zbr05git.mot.com/proj/repo01/blur_gerrit_mirror/
-	insteadOf=ssh://coreid@gerrit.pcs.mot.com:29418/
-	insteadOf=ssh://coreid@gerrit.mot.com:29418/
-	insteadOf=ssh://coreid@gerrit.blurdev.com:29418/
-	insteadOf=ssh://coreid@git.blurdev.com:29418/
-	insteadOf=ssh://coreid@gerrit.pcs.mot.com/
-	insteadOf=ssh://coreid@gerrit.mot.com/
-	insteadOf=ssh://coreid@gerrit.blurdev.com/
-	insteadOf=ssh://coreid@git.blurdev.com/
-	insteadOf=ssh://coreid@git.blurdev.com/proj/repo01/blur_gerrit_mirror/
-	insteadOf=ssh://coreid@gerrit.blurdev.com/proj/repo01/blur_gerrit_mirror/
-	insteadOf=ssh://coreid@zbr05git.mot.com/proj/repo01/gerrit/
-	insteadOf=ssh://coreid@zbr05git.mot.com/proj/repo01/blur_gerrit_mirror/
-	insteadOf=ssh://coreid@zbr05git.mot.com/29418/
+[url "ssh://moto-git:29418/"]
+     insteadOf=ssh://gerrit.pcs.mot.com:29418/
+     insteadOf=ssh://gerrit.mot.com:29418/
+     insteadOf=ssh://gerrit.blurdev.com:29418/
+     insteadOf=ssh://git.blurdev.com:29418/
+     insteadOf=ssh://gerrit.pcs.mot.com/
+     insteadOf=ssh://gerrit.mot.com/
+     insteadOf=ssh://gerrit.blurdev.com/
+     insteadOf=ssh://git.blurdev.com/
+     insteadOf=ssh://git.blurdev.com/proj/repo01/blur_gerrit_mirror/
+     insteadOf=ssh://gerrit.blurdev.com/proj/repo01/blur_gerrit_mirror/
+     insteadOf=file:///proj/repo01/gerrit/
+     insteadOf=/proj/repo01/gerrit/
+     insteadOf=file:///proj/repo01/blur_gerrit_mirror/
+     insteadOf=/proj/repo01/blur_gerrit_mirror/
+     insteadOf=ssh://moto-git/proj/repo01/gerrit/
+     insteadOf=ssh://moto-git/proj/repo01/blur_gerrit_mirror/
+     insteadOf=ssh://coreid@gerrit.pcs.mot.com:29418/
+     insteadOf=ssh://coreid@gerrit.mot.com:29418/
+     insteadOf=ssh://coreid@gerrit.blurdev.com:29418/
+     insteadOf=ssh://coreid@git.blurdev.com:29418/
+     insteadOf=ssh://coreid@gerrit.pcs.mot.com/
+     insteadOf=ssh://coreid@gerrit.mot.com/
+     insteadOf=ssh://coreid@gerrit.blurdev.com/
+     insteadOf=ssh://coreid@git.blurdev.com/
+     insteadOf=ssh://coreid@git.blurdev.com/proj/repo01/blur_gerrit_mirror/
+     insteadOf=ssh://coreid@gerrit.blurdev.com/proj/repo01/blur_gerrit_mirror/
+     insteadOf=ssh://coreid@moto-git/proj/repo01/gerrit/
+     insteadOf=ssh://coreid@moto-git/proj/repo01/blur_gerrit_mirror/
+     insteadOf=ssh://coreid@moto-git/29418/
 #
 #push changes to gerrit.mot.com
 #
 [url "ssh://gerrit.mot.com:29418/"]
-	pushinsteadOf=ssh://gerrit.pcs.mot.com/
-	pushinsteadOf=ssh://gerrit.mot.com/
-	pushinsteadof=ssh://gerrit.mot.com:29418/
-	pushinsteadOf=ssh://gerrit.pcs.mot.com/gerrit1/srv/git/
-	pushinsteadOf=ssh://gerrit.mot.com/gerrit1/srv/git/
-	pushinsteadOf=file:///proj/repo01/gerrit/
-	pushinsteadOf=/proj/repo01/gerrit/
-	pushinsteadof=ssh://git.blurdev.com/
-	pushinsteadof=file:///proj/repo01/blur_gerrit_mirror/
-	pushinsteadof=ssh://gerrit.blurdev.com/
-	pushinsteadof=ssh://git.blurdev.com/proj/repo01/blur_gerrit_mirror/
-	pushinsteadof=ssh://zbr05git.mot.com/proj/repo01/blur_gerrit_mirror/
-	pushinsteadof=ssh://zbr05git.mot.com/proj/repo01/gerrit/
-	pushinsteadof=ssh://zbr05git.mot.com:29418/
-	pushinsteadof=ssh://gerrit.pcs.mot.com:29418/
-	pushinsteadOf=ssh://coreid@gerrit.pcs.mot.com/
-	pushinsteadOf=ssh://coreid@gerrit.mot.com/
-	pushinsteadOf=ssh://coreid@gerrit.pcs.mot.com/gerrit1/srv/git/
-	pushinsteadOf=ssh://coreid@gerrit.mot.com/gerrit1/srv/git/
-	pushinsteadof=ssh://coreid@git.blurdev.com/
-	pushinsteadof=ssh://coreid@gerrit.blurdev.com/
-	pushinsteadof=ssh://coreid@git.blurdev.com/proj/repo01/blur_gerrit_mirror/
-	pushinsteadof=ssh://coreid@zbr05git.mot.com/proj/repo01/blur_gerrit_mirror/
-	pushinsteadof=ssh://coreid@zbr05git.mot.com/proj/repo01/gerrit/
-	pushinsteadof=ssh://coreid@zbr05git.mot.com:29418/
-	pushinsteadof=ssh://coreid@gerrit.pcs.mot.com:29418/
-	pushinsteadof=ssh://coreid@gerrit.mot.com:29418/
-#
+     pushinsteadOf=ssh://gerrit.pcs.mot.com/
+     pushinsteadOf=ssh://gerrit.mot.com/
+     pushinsteadof=ssh://gerrit.mot.com:29418/
+     pushinsteadOf=ssh://gerrit.pcs.mot.com/gerrit1/srv/git/
+     pushinsteadOf=ssh://gerrit.mot.com/gerrit1/srv/git/
+     pushinsteadOf=file:///proj/repo01/gerrit/
+     pushinsteadOf=/proj/repo01/gerrit/
+     pushinsteadof=ssh://git.blurdev.com/
+     pushinsteadof=file:///proj/repo01/blur_gerrit_mirror/
+     pushinsteadof=ssh://gerrit.blurdev.com/
+     pushinsteadof=ssh://git.blurdev.com/proj/repo01/blur_gerrit_mirror/
+     pushinsteadof=ssh://moto-git/proj/repo01/blur_gerrit_mirror/
+     pushinsteadof=ssh://moto-git/proj/repo01/gerrit/
+     pushinsteadof=ssh://moto-git:29418/
+     pushinsteadof=ssh://gerrit.pcs.mot.com:29418/
+     pushinsteadOf=ssh://coreid@gerrit.pcs.mot.com/
+     pushinsteadOf=ssh://coreid@gerrit.mot.com/
+     pushinsteadOf=ssh://coreid@gerrit.pcs.mot.com/gerrit1/srv/git/
+     pushinsteadOf=ssh://coreid@gerrit.mot.com/gerrit1/srv/git/
+     pushinsteadof=ssh://coreid@git.blurdev.com/
+     pushinsteadof=ssh://coreid@gerrit.blurdev.com/
+     pushinsteadof=ssh://coreid@git.blurdev.com/proj/repo01/blur_gerrit_mirror/
+     pushinsteadof=ssh://coreid@moto-git/proj/repo01/blur_gerrit_mirror/
+     pushinsteadof=ssh://coreid@moto-git/proj/repo01/gerrit/
+     pushinsteadof=ssh://coreid@moto-git:29418/
+     pushinsteadof=ssh://coreid@gerrit.pcs.mot.com:29418/
+     pushinsteadof=ssh://coreid@gerrit.mot.com:29418/
 #core config
 #
 [core]
