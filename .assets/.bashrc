@@ -53,3 +53,5 @@ alias la='ls -A'
 alias l='ls -CF'
 
 export PATH="/apps/android/bin:$PATH"
+export LD_LIBRARY_PATH=/apps/android/lib
+export PATH=$PATH:$LD_LIBRARY_PATH
