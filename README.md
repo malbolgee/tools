@@ -47,7 +47,7 @@ This script will set a SSH key into your machine. This is necessary to access to
 After this script run, you'll be able to login into the build server just by typing:
 
 ```shell
-$ ssh zbr|indt # zbr OR indt
+$ ssh indt
 ```
 
 ### Set your SSH key into the build server
