@@ -10,10 +10,7 @@ config_ssh() {
 	prompt_coreid_question
 	generate_key
 	add_key_to_authorized_keys
-
-	# only configure server file if we are not on a sever itself
-	[ "zbr05lbld12" != "$(uname -n)" ] && configure_config_file
-
+	configure_config_file
 	change_permissions
 	configure_gitconfig
 }
@@ -47,15 +44,14 @@ prompt_coreid_question() {
 }
 
 generate_key() {
+	# TODO: maybe in the future we will be forced to change from rsa to ed25519
+	# as stated in https://tap.mot.com/gerrit/gitconfiggen
 	logi "${LOG_TAG}" "Generating SSH key.."
 	yes '' | ssh-keygen -t rsa -f ~/.ssh/id_"$COREID"
 }
 
 configure_gitconfig() {
 	logi "${LOG_TAG}" "Configuring your .gitconfig file"
-
-	# TODO: handle if we are in SSH access in ZBR or INDT
-
 	cp "$(dirname "$(pwd)")"/.assets/.gitconfig "${HOME}"/.gitconfig
 	sed -i "s/coreid/${COREID}/g" "${HOME}"/.gitconfig
 }

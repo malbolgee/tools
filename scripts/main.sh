@@ -1,26 +1,26 @@
 #!/bin/bash
 
-. ./log.sh
+LOG_TAG="Main"
 
-LOG_TAG="Config"
+function show_error_message() {
+	echo "$1 was not found"
+	exit 1 
+}
 
-declare -A flags
-flags=()
+[ -f ./log.sh ] && . ./log.sh || show_error_message "./log.sh"
+[ -f ./utils.sh ] && . ./utils.sh || show_error_message "./utils.sh"
 
-if [[ -f ./utils.sh ]]; then
-	. ./utils.sh
-else
-	loge "${LOG_TAG}" "utils.sh was not found."
-	exit 1
-fi
+function main() {
 
-if [[ -z $1 ]]; then
-	usage
-	exit 1
-fi
+	local flags=()
 
-while (("$#")); do
-	case "$1" in
+	if [[ -z $1 ]]; then
+		usage
+		exit 1
+	fi
+
+	while (("$#")); do
+		case "$1" in
 		-h | --help)
 			usage
 			exit 0
@@ -34,7 +34,6 @@ while (("$#")); do
 			. ./cybereasoninstall.sh
 			. ./vysor.sh
 			. ./tmux.sh
-			. ./config_env.sh
 			exit 0
 			;;
 		-l | --libs)
@@ -73,12 +72,13 @@ while (("$#")); do
 			loge "${LOG_TAG}" "Unsupported flag $1" >&2
 			exit 1
 			;;
-	esac
-done
+		esac
+	done
 
-for flag in "${flags[@]}"; do
-	. $flag
-done
+	for flag in "${flags[@]}"; do
+		. $flag
+	done
 
-# TODO: handle INDT build sever as well.
-[ "zbr05lbld12" = "$(uname -n)" ] && . "./config_env.sh"
+}
+
+main
