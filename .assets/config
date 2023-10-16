@@ -1,16 +1,3 @@
-Host gerrit.mot.com
-User coreid
-IdentityFile ~/.ssh/id_coreid
-
-Host zbr05git.mot.com
-User coreid
-IdentityFile ~/.ssh/id_coreid
-
-Host zbr
-	HostName zbr05lbld12 
-	User coreid
-	IdentityFile ~/.ssh/id_coreid
-
 Host indt
 	HostName 100.66.32.219
 	User coreid
