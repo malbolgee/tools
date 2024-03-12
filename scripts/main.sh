@@ -81,4 +81,4 @@ function main() {
 
 }
 
-main
+main "$1"
