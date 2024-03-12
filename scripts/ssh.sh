@@ -1,6 +1,7 @@
 #!/bin/bash
 
-. ./log.sh
+# shellcheck source=/dev/null
+source ./log.sh
 
 LOG_TAG="SSH Config"
 
@@ -17,8 +18,8 @@ config_ssh() {
 
 change_permissions() {
 	logi "${LOG_TAG}" "Changing directories permissions.."
-	sudo chmod 755 ~
-	sudo chmod -R 700 ~/.ssh
+	chmod 755 ~
+	chmod -R 700 ~/.ssh
 }
 
 add_key_to_authorized_keys() {
@@ -44,10 +45,8 @@ prompt_coreid_question() {
 }
 
 generate_key() {
-	# TODO: maybe in the future we will be forced to change from rsa to ed25519
-	# as stated in https://tap.mot.com/gerrit/gitconfiggen
 	logi "${LOG_TAG}" "Generating SSH key.."
-	yes '' | ssh-keygen -t rsa -f ~/.ssh/id_"$COREID"
+	yes '' | ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_"$COREID" -C "${COREID}@motorola.com"
 }
 
 configure_gitconfig() {
