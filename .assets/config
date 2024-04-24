@@ -11,10 +11,3 @@ Host indt-br
 	IdentityFile ~/.ssh/id_coreid
 	HostKeyAlgorithms +ssh-rsa
 	PubkeyAcceptedKeyTypes +ssh-rsa
-
-Host moto-git
-	HostName 100.66.32.221
-	User coreid
-	IdentityFile ~/.ssh/id_ed25519
-	HostKeyAlgorithms +ssh-rsa
-	PubkeyAcceptedKeyTypes +ssh-rsa
