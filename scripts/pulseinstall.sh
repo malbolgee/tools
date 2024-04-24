@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# shellcheck source=/dev/null
 source ./log.sh
 
 LOG_TAG="Pulse Install"
@@ -46,7 +47,7 @@ make_connections() {
     fi
 
     logi "${LOG_TAG}" "Creating pulse connections..."
-    echo '{"connName":"motorola_en","baseUrl":"https://partnervpn.motorola.com/7121","preferredCert":""}' >> "${FILE_PATH}"/${FILE_NAME}
+    echo '{"connName":"motorola_us","baseUrl":"https://partnervpn.motorola.com/7121","preferredCert":""}' >> "${FILE_PATH}"/${FILE_NAME}
     echo '{"connName":"motorola_br","baseUrl":"https://br-partnervpn.motorola.com/7121","preferredCert":""}' >> "${FILE_PATH}"/${FILE_NAME}
 
     logi "${LOG_TAG}" "Connections succssefully created!"
