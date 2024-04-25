@@ -26,6 +26,7 @@ This script has several flags of options:
 > **-r, --cyber** - Install Cyberreason program.<br>
 > **-v, --vysor** - Install Vysor program.<br>
 > **-s, --ssh** - Create the ssh key and set the config file.<br>
+> **-g, --gdrive** - Install the ggdrive utility.<br>
 > **-h, --help** - Show how to use the program.<br>
 
 So, this is a valid use of the script:
@@ -55,6 +56,6 @@ $ ssh indt
 To set your SSH key into the build server and free yourself of the need to type your user and password every time, simply:
 
 ```shell
-$ ssh-copy-id -i <path/to/your/key/id_coreid>.pub <zbr|indt>
+$ ssh-copy-id -i <path/to/your/key/id_coreid>.pub <indt|indt-br>
 ```
 
