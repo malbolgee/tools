@@ -14,7 +14,7 @@ install_tmux() {
     sudo apt install -yf tmux
 
     logi "${LOG_TAG}" "Setting up tmux .tmux.conf"
-    git clone https://malbolge.dev.br/malbolge/dotfiles.git ${DOTFILES_PATH}
+    git clone https://github.com/malbolgee/dotfiles.git ${DOTFILES_PATH}
 
     echo "source-file ${DOTFILES_PATH}/.tmux.conf" >> ${CONF_FILE_PATH}
 
