@@ -21,17 +21,25 @@ install_pulse() {
     --content-disposition\
     --show-progress\
     https://github.com/malbolgee/tools/releases/download/v0.1/pulsesecure.deb
+    
+    logi "${LOG_TAG}" "Adding repository"
+    sudo echo 'deb http://br.archive.ubuntu.com/ubuntu bionic main universe' | sudo tee -a /etc/apt/sources.list > /dev/null
+    sudo echo 'deb http://mirrors.kernel.org/ubuntu bionic main universe' | sudo tee -a /etc/apt/sources.list > /dev/null
 
-    sudo add-apt-repository -y 'deb http://archive.ubuntu.com/ubuntu bionic main universe'
-    sudo apt update && sudo apt install && sudo apt install -yft bionic libwebkitgtk-1.0-0
+    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys "3B4FE6ACC0B21F32"
+    logi "${LOG_TAG}" "Updating"
+    sudo apt-get update
+
+    logi "${LOG_TAG}" "Installing packages"
+    sudo apt-get install -y libgdk-pixbuf2.0-0
+    sudo apt-get install -y libnss3-tools
+    sudo apt-get install -yft bionic libwebkitgtk-1.0-0
 
     logi "${LOG_TAG}" "Installing Pulse..."
     sudo dpkg -i ./pulsesecure.deb
 
     logi "${LOG_TAG}" "Removing trash.."
     rm -rf ./pulsesecure.deb
-
-    make_connections
 
     logi "${LOG_TAG}" "Pulse was successfully installed!"
 }
