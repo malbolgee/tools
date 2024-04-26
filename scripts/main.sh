@@ -2,13 +2,26 @@
 
 LOG_TAG="Main"
 
+set -e
+
 function show_error_message() {
 	echo "$1 was not found"
-	exit 1 
+	exit 1
 }
 
-[ -f ./log.sh ] && . ./log.sh || show_error_message "./log.sh"
-[ -f ./utils.sh ] && . ./utils.sh || show_error_message "./utils.sh"
+if [ -f ./log.sh ]; then
+	export LOG_LIB_LOADED='y'
+	source ./log.sh
+else
+	show_error_message "log.sh"
+fi
+
+if [ -f ./utils.sh ]; then
+	export UTILS_LIB_LOADED='y'
+	source ./utils.sh
+else
+	show_error_message "utils.sh"
+fi
 
 function main() {
 
@@ -34,6 +47,7 @@ function main() {
 			. ./cybereasoninstall.sh
 			. ./vysor.sh
 			. ./tmux.sh
+			. ./ggdrive.sh
 			exit 0
 			;;
 		-l | --libs)
@@ -68,6 +82,10 @@ function main() {
 			flags+=([ssh]=./ssh.sh)
 			shift
 			;;
+		-g | --ggdrive)
+			flags+=([ggdrive]=./ggdrive.sh)
+			shift
+			;;
 		-* | --*=) # unsupported flags
 			loge "${LOG_TAG}" "Unsupported flag $1" >&2
 			exit 1
@@ -76,9 +94,12 @@ function main() {
 	done
 
 	for flag in "${flags[@]}"; do
-		. $flag
+		source "$flag"
 	done
 
 }
 
 main "$1"
+
+unset LOG_LIB_LOADED
+unset UTILS_LIB_LOADED
