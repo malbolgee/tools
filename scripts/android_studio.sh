@@ -26,7 +26,7 @@ install_android_studio() {
 	prompt="${prompt}This means that you won't be able to use tools like adb or fastboot right off the bat. [Y/n] "
 
 	while true; do
-		read -p "Do you want to setup Android Studio now? [Y/n] " yn
+		read -p "${RED}Do you want to setup Android Studio now? [Y/n] ${NORMAL}" yn
 		case $yn in
 			[Yy]* )
 				lunch_android_studio_and_export
@@ -34,7 +34,7 @@ install_android_studio() {
 				;;
 			[Nn]* )
 				while true; do
-					read -p "${prompt}" yn
+					read -p "${RED}${prompt}${NORMAL}" yn
 					case $yn in
 						[Yy]* )
 							logw "${LOG_TAG}" "Continuing without the export."

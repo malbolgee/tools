@@ -28,13 +28,13 @@ add_key_to_authorized_keys() {
 }
 
 prompt_coreid_question() {
-	read -p "Is \"${USER}\" your coreid? [yN] " yn
+	read -p "${RED}Is ${BOLD}\"${USER}\" ${NORMAL}${RED}your coreid? [yN] ${NORMAL}" yn
 
 	if [[ "$yn" =~ [yY] ]] || [ -z "$yn" ]; then
 		COREID="$USER"
 	else
 		while true; do
-			read -p "Provide your coreid: " coreid
+			read -p "${RED}Provide your coreid${NORMAL}: " coreid
 
 			if [ -n "$coreid" ]; then
 				COREID="$coreid"

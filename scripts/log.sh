@@ -6,6 +6,10 @@ BLUE=$(tput setaf 4)
 CYAN=$(tput setaf 6)
 NORMAL=$(tput sgr0)
 
+BOLD=$(tput bold)
+UNDERLINE=$(tput smul)
+SPACES="       "
+
 # @param $1 - is the log tag of the file being logged
 # @param $2 - is the message to be logged
 logi() {
