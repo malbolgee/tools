@@ -23,10 +23,16 @@ install_pulse() {
     https://github.com/malbolgee/tools/releases/download/v0.1/pulsesecure.deb
     
     logi "${LOG_TAG}" "Adding repository"
-    sudo echo 'deb http://br.archive.ubuntu.com/ubuntu bionic main universe' | sudo tee -a /etc/apt/sources.list > /dev/null
-    sudo echo 'deb http://mirrors.kernel.org/ubuntu bionic main universe' | sudo tee -a /etc/apt/sources.list > /dev/null
 
-    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys "3B4FE6ACC0B21F32"
+    local gpg_key="3B4FE6ACC0B21F32"
+    local filepath="/etc/apt/sources.list"
+    local br_mirror="deb http://br.archive.ubuntu.com/ubuntu bionic main universe"
+    local us_mirror="deb http://mirrors.kernel.org/ubuntu bionic main universe"
+
+    add_source_ppa "$br_mirror" "$filepath"
+    add_source_ppa "$us_mirror" "$filepath"
+
+    sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys "$gpg_key"
     logi "${LOG_TAG}" "Updating"
     sudo apt-get update
 
@@ -42,23 +48,6 @@ install_pulse() {
     rm -rf ./pulsesecure.deb
 
     logi "${LOG_TAG}" "Pulse was successfully installed!"
-}
-
-make_connections() {
-
-    FILE_NAME=".pulse_Connections.txt"
-    FILE_PATH="$HOME/.pulse_secure/pulse/"
-
-    if [ ! -d "$FILE_PATH" ]; then
-        logi "${LOG_TAG}" "Directory ${FILE_PATH} does not exist, creating it.."
-        mkdir -p "${FILE_PATH}"
-    fi
-
-    logi "${LOG_TAG}" "Creating pulse connections..."
-    echo '{"connName":"motorola_us","baseUrl":"https://partnervpn.motorola.com/7121","preferredCert":""}' >> "${FILE_PATH}"/${FILE_NAME}
-    echo '{"connName":"motorola_br","baseUrl":"https://br-partnervpn.motorola.com/7121","preferredCert":""}' >> "${FILE_PATH}"/${FILE_NAME}
-
-    logi "${LOG_TAG}" "Connections succssefully created!"
 }
 
 install_pulse

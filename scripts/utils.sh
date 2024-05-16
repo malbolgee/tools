@@ -4,11 +4,6 @@ source ./log.sh
 
 LOG_TAG="Utils"
 
-BOLD=$(tput bold)
-UNDERLINE=$(tput smul)
-SPACES="       "
-NORMAL=$(tput sgr0)
-
 BASHRC_PATH="$HOME/.bashrc"
 
 # Export to PATH a directory passed as argument
@@ -16,20 +11,49 @@ BASHRC_PATH="$HOME/.bashrc"
 # @param $1 Is the path to be placed in the PATH.
 #
 path_export() {
-	if [ -f "$BASHRC_PATH" ]; then
-		if ! grep -qE "$1\$" "$BASHRC_PATH"; then
-			if [ -d "$1" ]; then
-				echo "export PATH=\$PATH:$1" >> "$BASHRC_PATH"
-				logi "${LOG_TAG}" "Directory $1 successfully put into PATH."
-			else
-				loge "${LOG_TAG}" "The directory $1 does not exist. Unable to put it into PATH."
-			fi
-		else
-			logw "${LOG_TAG}" "The .bashrc file already has this directory."
-		fi
-	else
-		loge "${LOG_TAG}" "The bashrc file does not exist. Unable to put it into PATH."
+
+	local line=$1
+
+	if [ ! -d "$line" ]; then
+		loge "${LOG_TAG}" "The directory $1 does not exist. Unable to put it into PATH."
 	fi
+
+	_put_line_in_file "$line" "$BASHRC_PATH"
+
+}
+
+# Add a PPA repository source into the source.list file
+add_source_ppa() {
+
+	local ppa=$1
+	local filepath=$2
+
+	_put_line_in_file "$ppa" "$filepath"
+
+}
+
+# Puts a line at the end of a file.
+#
+# @param $1 Is the line to be placed in the file.
+# @param $2 Is the path in which the file is located.
+#			The path must contain the file name as in /home/user/.bashrc, for exemple.
+#
+_put_line_in_file() {
+
+	local line=$1
+	local filepath=$2
+
+	if [ ! -f "$filepath" ]; then
+		loge "${LOG_TAG}" "The $filepath file does not exist."
+	fi
+
+	if ! grep -qE "$line" "$filepath"; then
+		sudo echo "$line" | sudo tee -a "$filepath" >/dev/null
+		logi "${LOG_TAG}" "Line $line successfully put in the $filepath file!"
+	else
+		logw "${LOG_TAG}" "The $filepath file already has this line. Skipping..."
+	fi
+
 }
 
 stop_service() {
@@ -72,5 +96,5 @@ usage() {
 }
 
 is_package_installed() {
-    ! [[ $(command -v "$1") = "" ]]
+	! [[ $(command -v "$1") = "" ]]
 }
