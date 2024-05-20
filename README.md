@@ -18,22 +18,34 @@ $ ./main.sh
 
 This script has several flags of options:
 
-> **-a, --all** - Install everything.<br>
-> **-l, --libs** - Install the libs necessary for some of the programs to work.<br>
-> **-p, --pulse** - Install the PulseSecure program.<br>
-> **-A, --android** - Install Android Studio.<br>
-> **-c, --code** - Install Visual Studio Code.<br>
-> **-r, --cyber** - Install Cyberreason program.<br>
-> **-v, --vysor** - Install Vysor program.<br>
-> **-s, --ssh** - Create the ssh key and set the config file.<br>
-> **-g, --gdrive** - Install the ggdrive utility.<br>
-> **-h, --help** - Show how to use the program.<br>
+> **-a** - Install everything.<br>
+> **-l** - Install the libs necessary for some of the programs to work.<br>
+> **-p** - Install the PulseSecure program.<br>
+> **-A** - Install Android Studio.<br>
+> **-c** - Install Visual Studio Code.<br>
+> **-r** - Install Cyberreason program.<br>
+> **-v** - Install Vysor program.<br>
+> **-s** - Create the ssh key and set the config file.<br>
+> **-g** - Install the ggdrive utility.<br>
+> **-h** - Show how to use the program.<br>
 
 So, this is a valid use of the script:
 
 ```shell
 $ ./main -a
 ```
+
+Or you can choose several flags at once to use. The below usage is also valid.
+
+```bash
+$ ./main -tsr
+```
+
+
+
+**The 'a' option cannot be used with other options.**
+
+
 
 This command will install everything. Be aware that sometimes you'll have to give yes or no answers to the prompt, so you can't just run the script and go lunch.
 

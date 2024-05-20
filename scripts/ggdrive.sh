@@ -10,16 +10,15 @@ if [ -z "${UTILS_LIB_LOADED-}" ]; then
     export UTILS_LIB_LOADED='y'
 fi
 
-LOG_TAG="Ggdrive Install"
+DRIVE_LOG_TAG="Ggdrive Install"
 
-install_ggdrive() {
-
+function install_ggdrive() {
     local REPOS_DIRECTORY="${HOME}"/repos
     local GGDRIVE_DIRECTORY=ggdrive
     local LOCAL_BIN_DIRECTORY="${HOME}"/.local/bin
 
     if [ ! -d "${REPOS_DIRECTORY}" ]; then
-        logi "${LOG_TAG}" "${REPOS_DIRECTORY} directory does not exist, creating it"
+        logi "${DRIVE_LOG_TAG}" "${REPOS_DIRECTORY} directory does not exist, creating it"
         mkdir -p "${REPOS_DIRECTORY}"
     fi
 
@@ -35,14 +34,14 @@ install_ggdrive() {
     cd - || exit
 
     if [ ! -d "${LOCAL_BIN_DIRECTORY}" ]; then
-        logi "${LOG_TAG}" "${LOCAL_BIN_DIRECTORY} directory does not exist, creating it"
+        logi "${DRIVE_LOG_TAG}" "${LOCAL_BIN_DIRECTORY} directory does not exist, creating it"
         mkdir -p "${LOCAL_BIN_DIRECTORY}"
     fi
 
-    logi "${LOG_TAG}" "Creating symlink to gdrive"
+    logi "${DRIVE_LOG_TAG}" "Creating symlink to gdrive"
     ln -s "${REPOS_DIRECTORY}"/${GGDRIVE_DIRECTORY}/gdrive "${LOCAL_BIN_DIRECTORY}"/gdrive
 
-    logi "${LOG_TAG}" "Exporting ${LOCAL_BIN_DIRECTORY} directory"
+    logi "${DRIVE_LOG_TAG}" "Exporting ${LOCAL_BIN_DIRECTORY} directory"
     path_export "${LOCAL_BIN_DIRECTORY}"
 }
 

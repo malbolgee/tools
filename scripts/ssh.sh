@@ -3,11 +3,11 @@
 # shellcheck source=/dev/null
 source ./log.sh
 
-LOG_TAG="SSH Config"
+SSH_LOG_TAG="SSH Config"
 
 COREID=""
 
-config_ssh() {
+function config_ssh() {
 	prompt_coreid_question
 	generate_key
 	add_key_to_authorized_keys
@@ -16,18 +16,18 @@ config_ssh() {
 	configure_gitconfig
 }
 
-change_permissions() {
-	logi "${LOG_TAG}" "Changing directories permissions.."
+function change_permissions() {
+	logi "${SSH_LOG_TAG}" "Changing directories permissions.."
 	chmod 755 ~
 	chmod -R 700 ~/.ssh
 }
 
-add_key_to_authorized_keys() {
-	logi "${LOG_TAG}" "Adding key to authorized keys.."
-	cat ~/.ssh/id_"$COREID".pub >> ~/.ssh/authorized_keys
+function add_key_to_authorized_keys() {
+	logi "${SSH_LOG_TAG}" "Adding key to authorized keys.."
+	cat ~/.ssh/id_"$COREID".pub >>~/.ssh/authorized_keys
 }
 
-prompt_coreid_question() {
+function prompt_coreid_question() {
 	read -p "${RED}Is ${BOLD}\"${USER}\" ${NORMAL}${RED}your coreid? [yN] ${NORMAL}" yn
 
 	if [[ "$yn" =~ [yY] ]] || [ -z "$yn" ]; then
@@ -44,19 +44,19 @@ prompt_coreid_question() {
 	fi
 }
 
-generate_key() {
-	logi "${LOG_TAG}" "Generating SSH key.."
+function generate_key() {
+	logi "${SSH_LOG_TAG}" "Generating SSH key.."
 	yes '' | ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_"$COREID" -C "${COREID}@motorola.com"
 }
 
-configure_gitconfig() {
-	logi "${LOG_TAG}" "Configuring your .gitconfig file"
+function configure_gitconfig() {
+	logi "${SSH_LOG_TAG}" "Configuring your .gitconfig file"
 	cp "$(dirname "$(pwd)")"/.assets/.gitconfig "${HOME}"/.gitconfig
 	sed -i "s/coreid/${COREID}/g" "${HOME}"/.gitconfig
 }
 
-configure_config_file() {
-	logi "${LOG_TAG}" "Configuring server config file"
+function configure_config_file() {
+	logi "${SSH_LOG_TAG}" "Configuring server config file"
 	cp "$(dirname "$(pwd)")"/.assets/config "${HOME}"/.ssh/config
 	sed -i "s/coreid/${COREID}/g" "${HOME}"/.ssh/config
 }

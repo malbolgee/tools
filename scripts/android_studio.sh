@@ -2,7 +2,7 @@
 
 source ./log.sh
 
-LOG_TAG="Android Studio Install"
+ANDROID_LOG_TAG="Android Studio Install"
 
 # If you're developing on Ubuntu Linux, you need to add a udev rules file that
 # contains a USB configuration for each type of device you want to use for
@@ -12,12 +12,12 @@ LOG_TAG="Android Studio Install"
 # For mor information {@link http://developer.android.com/tools/device.html} and
 # {@link http://www.linux-usb.org/usb.ids}
 #
-install_android_studio() {
-	logi "${LOG_TAG}" "Adding maarten-fonville/android-studio repository"
+function install_android_studio() {
+	logi "${ANDROID_LOG_TAG}" "Adding maarten-fonville/android-studio repository"
 	sudo add-apt-repository -y 'ppa:maarten-fonville/android-studio'
 	sudo apt-get update
 
-	logi "${LOG_TAG}" "Installing Android Studio"
+	logi "${ANDROID_LOG_TAG}" "Installing Android Studio"
 	sudo apt-get install -yf android-studio
 
 	cr=`echo $'\n.'`
@@ -37,7 +37,7 @@ install_android_studio() {
 					read -p "${RED}${prompt}${NORMAL}" yn
 					case $yn in
 						[Yy]* )
-							logw "${LOG_TAG}" "Continuing without the export."
+							logw "${ANDROID_LOG_TAG}" "Continuing without the export."
 							break
 							;;
 						[Nn]* )
@@ -45,25 +45,25 @@ install_android_studio() {
 							break
 							;;
 						* )
-							loge "${LOG_TAG}" "Please answer yes or no."
+							loge "${ANDROID_LOG_TAG}" "Please answer yes or no."
 							;;
 					esac
 				done
 				break
 				;;
 			* )
-				loge "${LOG_TAG}" "Please answer yes or no."
+				loge "${ANDROID_LOG_TAG}" "Please answer yes or no."
 				;;
 		esac
 	done
 
-	logi "${LOG_TAG}" "Configuring rules file"
+	logi "${ANDROID_LOG_TAG}" "Configuring rules file"
 	if [ ! -d "/etc/udev/rules.d" ]; then
-		logi "${LOG_TAG}" "/etc/udev/rules.d/ does not exist, creating it"
+		logi "${ANDROID_LOG_TAG}" "/etc/udev/rules.d/ does not exist, creating it"
 		sudo mkdir -p /etc/udev/rules.d/
 	fi
 
-	logi "${LOG_TAG}" "Copying rules file to final destination"
+	logi "${ANDROID_LOG_TAG}" "Copying rules file to final destination"
 	sudo cp "$(dirname "$(pwd)")"/.assets/51-android.rules /etc/udev/rules.d/51-android.rules
 	sudo chmod a+r /etc/udev/rules.d/51-android.rules
 	sudo service udev restart
@@ -72,11 +72,11 @@ install_android_studio() {
 	# need to disable it.
 	stop_service fwupd
 
-	logi "${LOG_TAG}" "Android Studio Setup is done."
+	logi "${ANDROID_LOG_TAG}" "Android Studio Setup is done."
 }
 
-lunch_android_studio_and_export() {
-	logi "${LOG_TAG}" "Launching Android Studio Setup Wizard"
+function lunch_android_studio_and_export() {
+	logi "${ANDROID_LOG_TAG}" "Launching Android Studio Setup Wizard"
 	/opt/android-studio/bin/./studio.sh
 
 	# here we are counting on that the user has completed the

@@ -1,12 +1,22 @@
 #!/bin/bash
 
-LOG_TAG="Main"
+MAIN_LOG_TAG="Main"
 
 set -e
 
 function show_error_message() {
 	echo "$1 was not found"
 	exit 1
+}
+
+function check_flag() {
+	local flag=$1
+	local option=$2
+
+	if [ "$flag" == "true" ]; then
+		loge "$MAIN_LOG_TAG" "Option $option cannot be used along with other options."
+		exit 1
+	fi
 }
 
 if [ -f ./log.sh ]; then
@@ -25,76 +35,118 @@ fi
 
 function main() {
 
-	local flags=()
+	local a_flag="false"
+	local l_flag="false"
+	local l_flag_force="true" # Forces the use of the -l option.
+
+	declare -A flags=()
+	declare -a order=(libs ssh code android cyber pulse vysor tmux ggdrive) # Keeps the order of execution
 
 	if [[ -z $1 ]]; then
 		usage
 		exit 1
 	fi
 
-	while (("$#")); do
-		case "$1" in
-		-h | --help)
-			usage
-			exit 0
+	while getopts 'lpAcrvtsgaFh' opt; do
+		case "$opt" in
+		a)
+
+			if [ "${#flags[@]}" -ne 0 ]; then
+				loge "$MAIN_LOG_TAG" "Option 'a' cannot be used along with other options."
+				exit 1
+			fi
+
+			flags+=(
+				[libs]=./libs.sh
+				[ssh]=./ssh.sh
+				[code]=./code.sh
+				[android]=./android_studio.sh
+				[cyber]=./cybereasoninstall.sh
+				[pulse]=./pulseinstall.sh
+				[vysor]=./vysor.sh
+				[tmux]=./tmux.sh
+				[ggdrive]=./ggdrive.sh
+			)
+
+			a_flag="true"
 			;;
-		-a | --all)
-			. ./libs.sh
-			. ./ssh.sh
-			. ./pulseinstall.sh
-			. ./android_studio.sh
-			. ./code.sh
-			. ./cybereasoninstall.sh
-			. ./vysor.sh
-			. ./tmux.sh
-			. ./ggdrive.sh
-			exit 0
+
+		F)
+			l_flag_force="false"
 			;;
-		-l | --libs)
+
+		l)
+			check_flag "$a_flag" "'a'"
 			flags+=([libs]=./libs.sh)
-			shift
+			l_flag="true"
 			;;
-		-p | --pulse)
+
+		p)
+			check_flag "$a_flag" "'a'"
 			flags+=([pulse]=./pulseinstall.sh)
-			shift
 			;;
-		-A | --android)
+
+		A)
+			check_flag "$a_flag" "'a'"
 			flags+=([android]=./android_studio.sh)
-			shift
 			;;
-		-c | --code)
+
+		c)
+			check_flag "$a_flag" "'a'"
 			flags+=([code]=./code.sh)
-			shift
 			;;
-		-r | --cyber)
+
+		r)
+			check_flag "$a_flag" "'a'"
 			flags+=([cyber]=./cybereasoninstall.sh)
-			shift
 			;;
-		-v | --vysor)
+
+		v)
+			check_flag "$a_flag" "'a'"
 			flags+=([vysor]=./vysor.sh)
-			shift
 			;;
-		-t | --tmux)
+
+		t)
+			check_flag "$a_flag" "'a'"
 			flags+=([tmux]=./tmux.sh)
-			shift
 			;;
-		-s | --ssh)
+
+		s)
+			check_flag "$a_flag" "'a'"
 			flags+=([ssh]=./ssh.sh)
-			shift
 			;;
-		-g | --ggdrive)
+
+		g)
+			check_flag "$a_flag" "'a'"
 			flags+=([ggdrive]=./ggdrive.sh)
-			shift
 			;;
-		-* | --*=) # unsupported flags
-			loge "${LOG_TAG}" "Unsupported flag $1" >&2
+
+		h)
+			usage
+			exit 1
+			;;
+
+		*)
+			usage
 			exit 1
 			;;
 		esac
 	done
 
-	for flag in "${flags[@]}"; do
-		source "$flag"
+	# should we even have a 'libs' in this flags array? 
+	if [[ "$a_flag" == "true" || "$l_flag" == "true" ]]; then
+		unset "flags['libs']" # Remove libs from whatever position it got placed into.
+	fi
+
+	# shellcheck source=/dev/null
+	# The libs script must always run, unless the F flag is used.
+	if [ "$l_flag_force" == "true" ]; then
+		source ./libs.sh
+	fi
+
+	# shellcheck source=/dev/null
+	for index in "${order[@]}"; do
+		source "${flags[$index]}"
 	done
 
 }
