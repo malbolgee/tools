@@ -2,6 +2,22 @@
 
 MAIN_LOG_TAG="Main"
 
+if [ -f ./log.sh ]; then
+	export LOG_LIB_LOADED='y'
+	# shellcheck source=/dev/null
+	source ./log.sh
+else
+	show_error_message "log.sh"
+fi
+
+if [ -f ./utils.sh ]; then
+	export UTILS_LIB_LOADED='y'
+	# shellcheck source=/dev/null
+	source ./utils.sh
+else
+	show_error_message "utils.sh"
+fi
+
 set -e
 
 function show_error_message() {
@@ -19,53 +35,36 @@ function check_flag() {
 	fi
 }
 
-if [ -f ./log.sh ]; then
-	export LOG_LIB_LOADED='y'
-	source ./log.sh
-else
-	show_error_message "log.sh"
-fi
-
-if [ -f ./utils.sh ]; then
-	export UTILS_LIB_LOADED='y'
-	source ./utils.sh
-else
-	show_error_message "utils.sh"
-fi
-
 function main() {
 
 	local a_flag="false"
-	local l_flag="false"
-	local l_flag_force="true" # Forces the use of the -l option.
+	local l_flag_force="true" # Forces the source of ./libs.sh script.
 
-	declare -A flags=()
-	declare -a order=(libs ssh code android cyber pulse vysor tmux ggdrive) # Keeps the order of execution
+	declare -a scripts=()
 
 	if [[ -z $1 ]]; then
 		usage
 		exit 1
 	fi
 
-	while getopts 'lpAcrvtsgaFh' opt; do
+	while getopts 'pAcrvtsgaFh' opt; do
 		case "$opt" in
 		a)
 
-			if [ "${#flags[@]}" -ne 0 ]; then
+			if [ "${#scripts[@]}" -ne 0 ]; then
 				loge "$MAIN_LOG_TAG" "Option 'a' cannot be used along with other options."
 				exit 1
 			fi
 
-			flags+=(
-				[libs]=./libs.sh
-				[ssh]=./ssh.sh
-				[code]=./code.sh
-				[android]=./android_studio.sh
-				[cyber]=./cybereasoninstall.sh
-				[pulse]=./pulseinstall.sh
-				[vysor]=./vysor.sh
-				[tmux]=./tmux.sh
-				[ggdrive]=./ggdrive.sh
+			scripts+=(
+				./ssh.sh
+				./code.sh
+				./android_studio.sh
+				./cybereasoninstall.sh
+				./pulseinstall.sh
+				./vysor.sh
+				./tmux.sh
+				./ggdrive.sh
 			)
 
 			a_flag="true"
@@ -75,50 +74,44 @@ function main() {
 			l_flag_force="false"
 			;;
 
-		l)
-			check_flag "$a_flag" "'a'"
-			flags+=([libs]=./libs.sh)
-			l_flag="true"
-			;;
-
 		p)
 			check_flag "$a_flag" "'a'"
-			flags+=([pulse]=./pulseinstall.sh)
+			scripts+=(./pulseinstall.sh)
 			;;
 
 		A)
 			check_flag "$a_flag" "'a'"
-			flags+=([android]=./android_studio.sh)
+			scripts+=(./android_studio.sh)
 			;;
 
 		c)
 			check_flag "$a_flag" "'a'"
-			flags+=([code]=./code.sh)
+			scripts+=(./code.sh)
 			;;
 
 		r)
 			check_flag "$a_flag" "'a'"
-			flags+=([cyber]=./cybereasoninstall.sh)
+			scripts+=(./cybereasoninstall.sh)
 			;;
 
 		v)
 			check_flag "$a_flag" "'a'"
-			flags+=([vysor]=./vysor.sh)
+			scripts+=(./vysor.sh)
 			;;
 
 		t)
 			check_flag "$a_flag" "'a'"
-			flags+=([tmux]=./tmux.sh)
+			scripts+=(./tmux.sh)
 			;;
 
 		s)
 			check_flag "$a_flag" "'a'"
-			flags+=([ssh]=./ssh.sh)
+			scripts+=(./ssh.sh)
 			;;
 
 		g)
 			check_flag "$a_flag" "'a'"
-			flags+=([ggdrive]=./ggdrive.sh)
+			scripts+=(./ggdrive.sh)
 			;;
 
 		h)
@@ -133,11 +126,6 @@ function main() {
 		esac
 	done
 
-	# should we even have a 'libs' in this flags array? 
-	if [[ "$a_flag" == "true" || "$l_flag" == "true" ]]; then
-		unset "flags['libs']" # Remove libs from whatever position it got placed into.
-	fi
-
 	# shellcheck source=/dev/null
 	# The libs script must always run, unless the F flag is used.
 	if [ "$l_flag_force" == "true" ]; then
@@ -145,8 +133,8 @@ function main() {
 	fi
 
 	# shellcheck source=/dev/null
-	for index in "${order[@]}"; do
-		source "${flags[$index]}"
+	for script in "${scripts[@]}"; do
+		source "${script}"
 	done
 
 }
