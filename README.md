@@ -19,7 +19,6 @@ $ ./main.sh
 This script has several flags of options:
 
 > **-a** - Install everything.<br>
-> **-l** - Install the libs necessary for some of the programs to work.<br>
 > **-p** - Install the PulseSecure program.<br>
 > **-A** - Install Android Studio.<br>
 > **-c** - Install Visual Studio Code.<br>
@@ -35,23 +34,19 @@ So, this is a valid use of the script:
 $ ./main -a
 ```
 
+This command will install everything. Be aware that sometimes you'll have to give **yes** or no answers to the prompt, so you can't just run the script and go lunch.
+
 Or you can choose several flags at once to use. The below usage is also valid.
 
 ```bash
 $ ./main -tsr
 ```
 
-
-
 **The 'a' option cannot be used with other options.**
-
-
-
-This command will install everything. Be aware that sometimes you'll have to give yes or no answers to the prompt, so you can't just run the script and go lunch.
 
 ## The Android Studio Installation
 
-The Android Studio installation can be triggered by choosing the ```-a | --all``` flags, or by specifically selecting to install only this program with the ```-A | --android``` flag. The script will download the most up-to-date Android Studio binary from its repository and, at some point, will question you if you want to install it. It is recommended to say yes to this question because after the installation, we export the platform-tools directory to ```$PATH```, so you can access tools such as ```adb``` and ```fastboot```.
+The Android Studio installation can be triggered by choosing the ```-a``` flag, or by specifically selecting to install only this program with the ```-A``` flag. The script will download the most up-to-date Android Studio binary from its repository and, at some point, will question you if you want to install it. It is recommended to say yes to this question because after the installation, we export the *platform-tools* directory to ```$PATH```, so you can access tools such as ```adb``` and ```fastboot```.
 
 ## The SSH configuration
 
