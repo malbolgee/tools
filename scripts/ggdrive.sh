@@ -1,16 +1,11 @@
 #!/bin/bash
 
-if [ -z "${LOG_LIB_LOADED-}" ]; then
-    source ./log.sh
-    export LOG_LIB_LOADED='y'
-fi
-
-if [ -z "${UTILS_LIB_LOADED-}" ]; then
-    source ./utils.sh
-    export UTILS_LIB_LOADED='y'
-fi
-
 DRIVE_LOG_TAG="Ggdrive Install"
+
+if [ -z "${MAIN_LOADED-}" ]; then
+    echo "The script must be accessed from main.sh"
+    exit 1
+fi
 
 function install_ggdrive() {
     local REPOS_DIRECTORY="${HOME}"/repos

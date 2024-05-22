@@ -1,8 +1,11 @@
 #!/bin/bash
 
-source ./log.sh
-
 TMUX_LOG_TAG="Tmux Install"
+
+if [ -z "${MAIN_LOADED-}" ]; then
+    echo "The script must be accessed from main.sh"
+    exit 1
+fi
 
 # Install tmux and puts a .tmux.conf in it
 function install_tmux() {

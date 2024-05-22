@@ -1,8 +1,11 @@
 #!/bin/bash
 
-source ./log.sh
-
 VYSOR_LOG_TAG="Vysor Install"
+
+if [ -z "${MAIN_LOADED-}" ]; then
+    echo "The script must be accessed from main.sh"
+    exit 1
+fi
 
 # Download and install the vysor software
 function install_vysor() {

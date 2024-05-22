@@ -1,8 +1,11 @@
 #!/bin/bash
 
-source ./log.sh
-
 CYBER_LOG_TAG="Cybereason Install"
+
+if [ -z "${MAIN_LOADED-}" ]; then
+    echo "The script must be accessed from main.sh"
+    exit 1
+fi
 
 # Download and install cybereason .deb package.
 #

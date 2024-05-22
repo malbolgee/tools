@@ -24,8 +24,7 @@ This script has several flags of options:
 > **-c** - Install Visual Studio Code.<br>
 > **-r** - Install Cyberreason program.<br>
 > **-v** - Install Vysor program.<br>
-> **-s** - Create the ssh key and set the config file.<br>
-> **-g** - Install the ggdrive utility.<br>
+> **-s** - Create the ssh key.<br>**-i** - Create the gitconfig file.<br>**-g** - Install the ggdrive utility.<br>
 > **-h** - Show how to use the program.<br>
 
 So, this is a valid use of the script:

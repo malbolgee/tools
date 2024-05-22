@@ -1,8 +1,11 @@
 #!/bin/bash
 
-source ./log.sh
-
 ANDROID_LOG_TAG="Android Studio Install"
+
+if [ -z "${MAIN_LOADED-}" ]; then
+    echo "The script must be accessed from main.sh"
+    exit 1
+fi
 
 # If you're developing on Ubuntu Linux, you need to add a udev rules file that
 # contains a USB configuration for each type of device you want to use for

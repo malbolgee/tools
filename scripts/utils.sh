@@ -65,6 +65,23 @@ function stop_service() {
 	sudo systemctl mask "${1}".service
 }
 
+function prompt_coreid_question() {
+	read -p "${RED}Is ${BOLD}\"${COREID}\" ${NORMAL}${RED}your coreid? [yN] ${NORMAL}" yn
+
+	if [[ "$yn" =~ [yY] ]] || [ -z "$yn" ]; then
+		COREID="$USER"
+	else
+		while true; do
+			read -p "${RED}Provide your coreid${NORMAL}: " coreid
+
+			if [ -n "$coreid" ]; then
+				COREID="$coreid"
+				break
+			fi
+		done
+	fi
+}
+
 function usage() {
 	printf "%sNAME%s\\n" "${BOLD}" "${NORMAL}"
 	printf "%sconfig - Motorola ThinkShield Script Configuration\\n\\n" "${SPACES}"
@@ -91,6 +108,8 @@ function usage() {
 	printf "%s%sinstall tmux .\\n\\n" "${SPACES}" "${SPACES}"
 	printf "%s%s-s%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}"
 	printf "%s%sconfigure ssh settings .\\n\\n" "${SPACES}" "${SPACES}"
+	printf "%s%s-i%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}"
+	printf "%s%sconfigure the gitconfig file .\\n\\n" "${SPACES}" "${SPACES}"
 	printf "%s%s-g%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}"
 	printf "%s%sinstall ggdrive utility .\\n\\n" "${SPACES}" "${SPACES}"
 }

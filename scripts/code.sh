@@ -1,8 +1,11 @@
 #!/bin/bash
 
-source ./log.sh
-
 CODE_LOG_TAG="Vistual Studio Install"
+
+if [ -z "${MAIN_LOADED-}" ]; then
+    echo "The script must be accessed from main.sh"
+    exit 1
+fi
 
 function install_visual_code() {
     wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >packages.microsoft.gpg

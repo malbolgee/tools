@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ -z "${MAIN_LOADED-}" ]; then
+    echo "The script must be accessed from main.sh"
+    exit 1
+fi
+
 # Install all the libs necessary for the other packages to properly run.
 function install_libs() {
 	sudo apt update && sudo apt -y upgrade

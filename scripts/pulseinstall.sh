@@ -1,9 +1,11 @@
 #!/bin/bash
 
-# shellcheck source=/dev/null
-source ./log.sh
-
 PULSE_LOG_TAG="Pulse Install"
+
+if [ -z "${MAIN_LOADED-}" ]; then
+    echo "The script must be accessed from main.sh"
+    exit 1
+fi
 
 # Download and install pulsesecure .deb package.
 #

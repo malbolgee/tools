@@ -1,9 +1,13 @@
 #!/bin/bash
 
+set -e
+
 MAIN_LOG_TAG="Main"
 
+export COREID=$USER
+export MAIN_LOADED="true"
+
 if [ -f ./log.sh ]; then
-	export LOG_LIB_LOADED='y'
 	# shellcheck source=/dev/null
 	source ./log.sh
 else
@@ -11,14 +15,11 @@ else
 fi
 
 if [ -f ./utils.sh ]; then
-	export UTILS_LIB_LOADED='y'
 	# shellcheck source=/dev/null
 	source ./utils.sh
 else
 	show_error_message "utils.sh"
 fi
-
-set -e
 
 function show_error_message() {
 	echo "$1 was not found"
@@ -47,7 +48,7 @@ function main() {
 		exit 1
 	fi
 
-	while getopts 'pAcrvtsgaFh' opt; do
+	while getopts 'aipcrvtsgAFh' opt; do
 		case "$opt" in
 		a)
 
@@ -58,6 +59,7 @@ function main() {
 
 			scripts+=(
 				./ssh.sh
+				./gitconfig.sh
 				./code.sh
 				./android_studio.sh
 				./cybereasoninstall.sh
@@ -109,6 +111,11 @@ function main() {
 			scripts+=(./ssh.sh)
 			;;
 
+		i)
+			check_flag "$a_flag" "'a'"
+			scripts+=(./gitconfig.sh)
+			;;
+
 		g)
 			check_flag "$a_flag" "'a'"
 			scripts+=(./ggdrive.sh)
@@ -139,7 +146,9 @@ function main() {
 
 }
 
+prompt_coreid_question
+
 main "$1"
 
-unset LOG_LIB_LOADED
-unset UTILS_LIB_LOADED
+unset COREID
+unset MAIN_LOADED
