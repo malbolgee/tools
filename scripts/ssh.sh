@@ -8,7 +8,6 @@ if [ -z "${MAIN_LOADED-}" ]; then
 fi
 
 function config_ssh() {
-	prompt_coreid_question
 	generate_key
 	add_key_to_authorized_keys
 	configure_config_file
