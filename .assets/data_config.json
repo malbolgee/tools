@@ -1,0 +1,22 @@
+{
+  "configs": [
+    {
+      "ext": "application/x-tar",
+      "encoding": "gzip",
+      "prog": "tar",
+      "attrs": "xzvf"
+    },
+    {
+      "ext": null,
+      "encoding": "gzip",
+      "prog": "gunzip",
+      "attrs": null
+    },
+    {
+      "ext": "application/x-tar",
+      "encoding": null,
+      "prog": "tar",
+      "attrs": "xvf"
+    }
+  ]
+}

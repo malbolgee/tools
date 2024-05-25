@@ -11,6 +11,7 @@ function install_ggdrive() {
     local REPOS_DIRECTORY="${HOME}"/repos
     local GGDRIVE_DIRECTORY=ggdrive
     local LOCAL_BIN_DIRECTORY="${HOME}"/.local/bin
+    local DOT_GDRIVE_DIRECTORY="${HOME}"/.gdrive
 
     if [ ! -d "${REPOS_DIRECTORY}" ]; then
         logi "${DRIVE_LOG_TAG}" "${REPOS_DIRECTORY} directory does not exist, creating it"
@@ -38,6 +39,9 @@ function install_ggdrive() {
 
     logi "${DRIVE_LOG_TAG}" "Exporting ${LOCAL_BIN_DIRECTORY} directory"
     path_export "${LOCAL_BIN_DIRECTORY}"
+
+    logi "${DRIVE_LOG_TAG}" "Copying data_config.json file to ${DOT_GDRIVE_DIRECTORY} directory"
+    cp "$(dirname "$(pwd)")"/.assets/data_config.json "${DOT_GDRIVE_DIRECTORY}"
 }
 
 install_ggdrive
