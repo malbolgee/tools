@@ -39,6 +39,9 @@ function check_flag() {
 function main() {
 
 	local a_flag="false"
+	local s_flag="false"
+	local i_flag="false"
+
 	local l_flag_force="true" # Forces the source of ./libs.sh script.
 
 	declare -a scripts=()
@@ -108,11 +111,13 @@ function main() {
 
 		s)
 			check_flag "$a_flag" "'a'"
+			s_flag="true"
 			scripts+=(./ssh.sh)
 			;;
 
 		i)
 			check_flag "$a_flag" "'a'"
+			i_flag="true"
 			scripts+=(./gitconfig.sh)
 			;;
 
@@ -133,6 +138,11 @@ function main() {
 		esac
 	done
 
+	# only ask for core id if we need it
+	if [[ "$a_flag" == "true" || "$s_flag" == "true" || "$i_flag" == true ]]; then
+		prompt_coreid_question
+	fi
+
 	# shellcheck source=/dev/null
 	# The libs script must always run, unless the F flag is used.
 	if [ "$l_flag_force" == "true" ]; then
@@ -145,8 +155,6 @@ function main() {
 	done
 
 }
-
-prompt_coreid_question
 
 main "$1"
 
