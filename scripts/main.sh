@@ -7,6 +7,11 @@ MAIN_LOG_TAG="Main"
 export COREID=$USER
 export MAIN_LOADED="true"
 
+function show_error_message() {
+	echo "$1 was not found"
+	exit 1
+}
+
 if [ -f ./log.sh ]; then
 	# shellcheck source=/dev/null
 	source ./log.sh
@@ -20,11 +25,6 @@ if [ -f ./utils.sh ]; then
 else
 	show_error_message "utils.sh"
 fi
-
-function show_error_message() {
-	echo "$1 was not found"
-	exit 1
-}
 
 function check_flag() {
 	local flag=$1
