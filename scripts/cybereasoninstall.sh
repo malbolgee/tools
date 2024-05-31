@@ -13,22 +13,31 @@ fi
 # response all in one lightweight agent. It's a Motorola requirement.
 #
 function install_cybereason() {
+    _download_cybereason
+    _install_cyberreason
+}
+
+function _download_cybereason() {
+    logi "${CYBER_LOG_TAG}" "Downloading Cybereason"
+
+    local CYBER_URL="https://github.com/malbolgee/tools/releases/download/v0.1/cybereason.deb"
+
     if ! is_package_installed 'wget'; then
-        logi "${CYBER_LOG_TAG}" "installing wget..."
+        logi "${CYBER_LOG_TAG}" "installing wget"
         sudo apt install -yf wget
     fi
-
-    logi "${CYBER_LOG_TAG}" "Downloading Cybereason..."
 
     wget --no-check-certificate\
     --content-disposition\
     --show-progress\
-    https://github.com/malbolgee/tools/releases/download/v0.1/cybereason.deb
+    "${CYBER_URL}"
+}
 
-    logi "${CYBER_LOG_TAG}" "Installing Cybereason..."
+function _install_cyberreason() {
+    logi "${CYBER_LOG_TAG}" "Installing Cybereason"
     sudo dpkg -i ./cybereason.deb && logi "${CYBER_LOG_TAG}" "Cybereason has been successfully installed!"
 
-    logi "${CYBER_LOG_TAG}" "Removing trash..."
+    logi "${CYBER_LOG_TAG}" "Removing trash"
     rm -rf ./cybereason.deb
 }
 

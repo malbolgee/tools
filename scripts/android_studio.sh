@@ -16,10 +16,26 @@ fi
 # {@link http://www.linux-usb.org/usb.ids}
 #
 function install_android_studio() {
-	logi "${ANDROID_LOG_TAG}" "Adding maarten-fonville/android-studio repository"
+
+	_add_ppa
+	_install_android_studio
+	_config_rules_file
+
+	# The fwupd linux service somehow interferes with the fastboot process. We
+	# need to disable it.
+	stop_service fwupd
+
+	logi "${ANDROID_LOG_TAG}" "Android Studio Setup is done."
+}
+
+#TODO! May conflict with other _add_ppa method defined in pulseinstall.sh script.
+function _add_ppa() {
+	logi "${ANDROID_LOG_TAG}" "Adding repository"
 	sudo add-apt-repository -y 'ppa:maarten-fonville/android-studio'
 	sudo apt-get update
+}
 
+function _install_android_studio() {
 	logi "${ANDROID_LOG_TAG}" "Installing Android Studio"
 	sudo apt-get install -yf android-studio
 
@@ -59,7 +75,9 @@ function install_android_studio() {
 				;;
 		esac
 	done
+}
 
+function _config_rules_file() {
 	logi "${ANDROID_LOG_TAG}" "Configuring rules file"
 	if [ ! -d "/etc/udev/rules.d" ]; then
 		logi "${ANDROID_LOG_TAG}" "/etc/udev/rules.d/ does not exist, creating it"
@@ -70,12 +88,6 @@ function install_android_studio() {
 	sudo cp "$(dirname "$(pwd)")"/.assets/51-android.rules /etc/udev/rules.d/51-android.rules
 	sudo chmod a+r /etc/udev/rules.d/51-android.rules
 	sudo service udev restart
-
-	# The fwupd linux service somehow interferes with the fastboot process. We
-	# need to disable it.
-	stop_service fwupd
-
-	logi "${ANDROID_LOG_TAG}" "Android Studio Setup is done."
 }
 
 function lunch_android_studio_and_export() {

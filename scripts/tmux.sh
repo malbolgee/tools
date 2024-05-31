@@ -9,20 +9,31 @@ fi
 
 # Install tmux and puts a .tmux.conf in it
 function install_tmux() {
-    DOTFILES_PATH=$HOME/dotfiles
-    CONF_FILE_PATH=$HOME/.tmux.conf
+    local DOTFILES_PATH="${HOME}"/dotfiles
+    local CONF_FILE_PATH="${HOME}"/.tmux.conf
 
     if ! is_package_installed 'tmux'; then
-        logi "${TMUX_LOG_TAG}" "Trying to install Tmux.."
+        logi "${TMUX_LOG_TAG}" "Trying to install Tmux"
         sudo apt install -yf tmux
     fi
 
+    _clone_dotfiles_repository
+
+    logi "${TMUX_LOG_TAG}" "Successfully configured"
+}
+
+function _clone_dotfiles_repository() {
     logi "${TMUX_LOG_TAG}" "Setting up tmux .tmux.conf"
-    git clone https://github.com/malbolgee/dotfiles.git "${DOTFILES_PATH}"
 
+    local DOTFILES_GITHUB_URL="https://github.com/malbolgee/dotfiles.git"
+
+    if ! is_package_installed 'git'; then
+        logi "${TMUX_LOG_TAG}" "Trying to install git"
+        sudo apt install -yf git
+    fi
+
+    git clone "${DOTFILES_GITHUB_URL}" "${DOTFILES_PATH}"
     echo "source-file ${DOTFILES_PATH}/.tmux.conf" >>"${CONF_FILE_PATH}"
-
-    logi "${TMUX_LOG_TAG}" "Tmux was successfully installed!"
 }
 
 install_tmux
