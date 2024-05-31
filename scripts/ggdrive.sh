@@ -19,7 +19,6 @@ function install_ggdrive() {
     fi
 
     git clone https://github.com/malbolgee/ggdrive.git "${REPOS_DIRECTORY}"/${GGDRIVE_DIRECTORY}
-    git -C "${REPOS_DIRECTORY}"/${GGDRIVE_DIRECTORY}/ checkout fix/progress_logger
 
     cp "$(dirname "$(pwd)")"/.assets/config_env.sh "${REPOS_DIRECTORY}"/${GGDRIVE_DIRECTORY}/
 
