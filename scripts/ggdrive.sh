@@ -22,6 +22,8 @@ function install_ggdrive() {
     _export_and_set_data_file
 
     logi "${DRIVE_LOG_TAG}" "ggdrive configuration is done"
+
+    summary+=("ggdrive tool has been configured")
 }
 
 function _clone_repository() {

@@ -18,6 +18,8 @@ function install_pulse() {
     _install_pulse
 
     logi "${PULSE_LOG_TAG}" "PulseSecure installation is done"
+
+    summary+=("PulseSecure has been installed")
 }
 
 function _download_pulse() {

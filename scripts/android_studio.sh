@@ -16,7 +16,6 @@ fi
 # {@link http://www.linux-usb.org/usb.ids}
 #
 function install_android_studio() {
-
 	_add_ppa
 	_install_android_studio
 	_config_rules_file
@@ -26,9 +25,10 @@ function install_android_studio() {
 	stop_service fwupd
 
 	logi "${ANDROID_LOG_TAG}" "Android Studio Setup is done."
+
+	summary+=("Android Studio has been installed")
 }
 
-#TODO! May conflict with other _add_ppa method defined in pulseinstall.sh script.
 function _add_ppa() {
 	logi "${ANDROID_LOG_TAG}" "Adding repository"
 	sudo add-apt-repository -y 'ppa:maarten-fonville/android-studio'

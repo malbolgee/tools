@@ -10,6 +10,8 @@ fi
 function install_visual_code() {
     _config_vscode_gpg_keys
     _install_visual_code
+
+    summary+=("Vistual Studio Code has been installed")
 }
 
 function _config_vscode_gpg_keys() {

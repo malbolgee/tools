@@ -12,6 +12,8 @@ function config_ssh() {
 	add_key_to_authorized_keys
 	configure_config_file
 	change_permissions
+
+	summary+=("The SSH keys has been configured")
 }
 
 function change_permissions() {
