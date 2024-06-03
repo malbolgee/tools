@@ -20,6 +20,8 @@ function install_tmux() {
     _clone_dotfiles_repository
 
     logi "${TMUX_LOG_TAG}" "Successfully configured"
+    
+    summary+=("tmux has been configured")
 }
 
 function _clone_dotfiles_repository() {

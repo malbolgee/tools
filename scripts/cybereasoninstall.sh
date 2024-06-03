@@ -15,6 +15,8 @@ fi
 function install_cybereason() {
     _download_cybereason
     _install_cyberreason
+
+    summary+=("Cybereason has been installed")
 }
 
 function _download_cybereason() {
