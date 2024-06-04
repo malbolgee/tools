@@ -170,7 +170,11 @@ function main() {
 		source "${script}"
 	done
 
-	lolcat <../.assets/done
+	if is_package_installed 'lolcat'; then
+		lolcat <../.assets/done
+	else
+		cat <../.assets/done
+	fi
 
 	for message in "${summary[@]}"; do
 		printf "%s%s%s\\n" "${GREEN}" "${message}" "${NORMAL}"
