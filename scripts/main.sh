@@ -83,7 +83,7 @@ function main() {
 				./android_studio.sh
 				./cybereasoninstall.sh
 				./pulseinstall.sh
-				./vysor.sh
+				./scrcpy.sh
 				./tmux.sh
 				./ggdrive.sh
 			)
@@ -117,7 +117,7 @@ function main() {
 
 		v)
 			check_flag "$a_flag" "'a'"
-			scripts+=(./vysor.sh)
+			scripts+=(./scrcpy.sh)
 			;;
 
 		t)

@@ -23,7 +23,7 @@ This script has several flags of options:
 > **-A** - Install Android Studio.<br>
 > **-c** - Install Visual Studio Code.<br>
 > **-r** - Install Cyberreason program.<br>
-> **-v** - Install Vysor program.<br>
+> **-v** - Install scrcpy program.<br>
 > **-s** - Create the ssh key.<br>**-i** - Create the gitconfig file.<br>**-g** - Install the ggdrive utility.<br>
 > **-h** - Show how to use the program.<br>
 

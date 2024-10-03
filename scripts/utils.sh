@@ -103,7 +103,7 @@ function usage() {
 	printf "%s%s-r%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}"
 	printf "%s%sinstall Cybereason .\\n\\n" "${SPACES}" "${SPACES}"
 	printf "%s%s-v%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}"
-	printf "%s%sinstall Vysor .\\n\\n" "${SPACES}" "${SPACES}"
+	printf "%s%sinstall scrcpy .\\n\\n" "${SPACES}" "${SPACES}"
 	printf "%s%s-t%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}"
 	printf "%s%sinstall tmux .\\n\\n" "${SPACES}" "${SPACES}"
 	printf "%s%s-s%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}"
