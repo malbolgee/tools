@@ -12,18 +12,13 @@ function install_scrcpy() {
     local SCRCPY_DIRECTORY=scrcpy
     local ANDROID_SDK_DIRECTORY="${HOME}/Android/Sdk"
     local GITHUB_REPO_LINK="https://github.com/Genymobile/scrcpy.git"
-    local status
 
     _clone_repository
     _install_required_packages
-    status=$(_build_and_install)
+    _build_and_install
 
-    if [ "${status}" = "true" ]; then
-        logi "${SCRCPY_LOG_TAG}" "scrcpy installation is done"
-        summary+=("scrcpy has been installed")
-    else
-        summary+=("scrcpy has not been installed.")
-    fi
+    logi "${SCRCPY_LOG_TAG}" "scrcpy installation is done"
+    summary+=("scrcpy has been installed")
 
 }
 
@@ -31,7 +26,7 @@ function _install_required_packages() {
     logi "${SCRCPY_LOG_TAG}" "Installing required packages"
 
     sudo apt install -yf ffmpeg libsdl2-2.0-0 libusb-1.0-0
-    sudo apt install -yf gcc git pkg-config meson ninja-build libsdl2-dev \
+    sudo apt install -yf gcc pkg-config meson ninja-build libsdl2-dev \
         libavcodec-dev libavdevice-dev libavformat-dev libavutil-dev \
         libswresample-dev libusb-1.0-0-dev
 
