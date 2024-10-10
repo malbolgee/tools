@@ -65,3 +65,5 @@ function _build_and_install() {
         echo "true"
     fi
 }
+
+install_scrcpy
