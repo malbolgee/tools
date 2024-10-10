@@ -18,7 +18,7 @@ function path_export() {
 		loge "${UTILS_LOG_TAG}" "The directory $1 does not exist. Unable to put it into PATH."
 	fi
 
-	_put_line_in_file "$line" "$BASHRC_PATH"
+	_put_line_in_file "export PATH=$line:\$PATH" "$BASHRC_PATH"
 
 }
 
