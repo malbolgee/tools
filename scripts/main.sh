@@ -79,7 +79,7 @@ function main() {
 			scripts+=(
 				./ssh.sh
 				./gitconfig.sh
-				./code.sh
+				./vscodium.sh
 				./android_studio.sh
 				./cybereasoninstall.sh
 				./pulseinstall.sh
@@ -107,7 +107,7 @@ function main() {
 
 		c)
 			check_flag "$a_flag" "'a'"
-			scripts+=(./code.sh)
+			scripts+=(./vscodium.sh)
 			;;
 
 		r)
