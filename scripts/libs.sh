@@ -16,4 +16,6 @@ function install_libs() {
 	summary+=("The necessary packages has been installed")
 }
 
-install_libs
+if ! is_on_server; then
+	install_libs
+fi

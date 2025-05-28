@@ -17,9 +17,11 @@ function install_ggdrive() {
     logi "${DRIVE_LOG_TAG}" "Configuring ggdrive"
 
     _clone_repository
-    _prepare_env
     _create_symlink
     _export_and_set_data_file
+    if ! is_on_server; then
+        _prepare_env
+    fi
 
     logi "${DRIVE_LOG_TAG}" "ggdrive configuration is done"
 

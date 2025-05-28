@@ -82,6 +82,10 @@ function prompt_coreid_question() {
 	fi
 }
 
+function is_on_server() {
+	[[ -n "$SSH_CONNECTION" ]]
+}
+
 function usage() {
 	printf "%sNAME%s\\n" "${BOLD}" "${NORMAL}"
 	printf "%sconfig - Motorola ThinkShield Script Configuration\\n\\n" "${SPACES}"
