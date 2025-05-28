@@ -82,7 +82,7 @@ function main() {
 				./code.sh
 				./android_studio.sh
 				./cybereasoninstall.sh
-				./pulseinstall.sh
+				./anyconnect.sh
 				./scrcpy.sh
 				./tmux.sh
 				./ggdrive.sh
@@ -97,7 +97,7 @@ function main() {
 
 		p)
 			check_flag "$a_flag" "'a'"
-			scripts+=(./pulseinstall.sh)
+			scripts+=(./anyconnect.sh)
 			;;
 
 		A)
