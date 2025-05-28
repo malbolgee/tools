@@ -19,16 +19,20 @@ function _config_vscode_gpg_keys() {
 
     local VSCODE_ASC_KEY_URL="https://packages.microsoft.com/keys/microsoft.asc"
 
-    wget -qO- "${VSCODE_ASC_KEY_URL}" | gpg --dearmor >packages.microsoft.gpg
-    sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
-    sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+    sudo apt install -yf wget gpg
+    wget -qO- "${VSCODE_ASC_KEY_URL}" | gpg --dearmor > packages.microsoft.gpg
+    sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
+    echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" |sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null
     rm -f packages.microsoft.gpg
 }
 
 function _install_visual_code() {
+    sudo apt install -yf apt-transport-https
     sudo apt update
     logi "${CODE_LOG_TAG}" "Trying to install"
     sudo apt install -yf code && logi "${CODE_LOG_TAG}" "Vistual Studio Code successfully installed!"
 }
 
-install_visual_code
+if ! is_on_server; then
+    install_visual_code
+fi

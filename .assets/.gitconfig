@@ -7,7 +7,7 @@
 #
 #pull changes from Gerrit Slave
 #
-[url "ssh://moto-git:29418/"]
+[url "ssh://moto-git01:29418/"]
      insteadOf=ssh://gerrit.pcs.mot.com:29418/
      insteadOf=ssh://gerrit.mot.com:29418/
      insteadOf=ssh://gerrit.blurdev.com:29418/
@@ -22,8 +22,8 @@
      insteadOf=/proj/repo01/gerrit/
      insteadOf=file:///proj/repo01/blur_gerrit_mirror/
      insteadOf=/proj/repo01/blur_gerrit_mirror/
-     insteadOf=ssh://moto-git/proj/repo01/gerrit/
-     insteadOf=ssh://moto-git/proj/repo01/blur_gerrit_mirror/
+     insteadOf=ssh://moto-git01/proj/repo01/gerrit/
+     insteadOf=ssh://moto-git01/proj/repo01/blur_gerrit_mirror/
      insteadOf=ssh://coreid@gerrit.pcs.mot.com:29418/
      insteadOf=ssh://coreid@gerrit.mot.com:29418/
      insteadOf=ssh://coreid@gerrit.blurdev.com:29418/
@@ -34,9 +34,9 @@
      insteadOf=ssh://coreid@git.blurdev.com/
      insteadOf=ssh://coreid@git.blurdev.com/proj/repo01/blur_gerrit_mirror/
      insteadOf=ssh://coreid@gerrit.blurdev.com/proj/repo01/blur_gerrit_mirror/
-     insteadOf=ssh://coreid@moto-git/proj/repo01/gerrit/
-     insteadOf=ssh://coreid@moto-git/proj/repo01/blur_gerrit_mirror/
-     insteadOf=ssh://coreid@moto-git/29418/
+     insteadOf=ssh://coreid@moto-git01/proj/repo01/gerrit/
+     insteadOf=ssh://coreid@moto-git01/proj/repo01/blur_gerrit_mirror/
+     insteadOf=ssh://coreid@moto-git01/29418/
 #
 #push changes to gerrit.mot.com
 #
@@ -52,9 +52,9 @@
      pushinsteadof=file:///proj/repo01/blur_gerrit_mirror/
      pushinsteadof=ssh://gerrit.blurdev.com/
      pushinsteadof=ssh://git.blurdev.com/proj/repo01/blur_gerrit_mirror/
-     pushinsteadof=ssh://moto-git/proj/repo01/blur_gerrit_mirror/
-     pushinsteadof=ssh://moto-git/proj/repo01/gerrit/
-     pushinsteadof=ssh://moto-git:29418/
+     pushinsteadof=ssh://moto-git01/proj/repo01/blur_gerrit_mirror/
+     pushinsteadof=ssh://moto-git01/proj/repo01/gerrit/
+     pushinsteadof=ssh://moto-git01:29418/
      pushinsteadof=ssh://gerrit.pcs.mot.com:29418/
      pushinsteadOf=ssh://coreid@gerrit.pcs.mot.com/
      pushinsteadOf=ssh://coreid@gerrit.mot.com/
@@ -63,14 +63,14 @@
      pushinsteadof=ssh://coreid@git.blurdev.com/
      pushinsteadof=ssh://coreid@gerrit.blurdev.com/
      pushinsteadof=ssh://coreid@git.blurdev.com/proj/repo01/blur_gerrit_mirror/
-     pushinsteadof=ssh://coreid@moto-git/proj/repo01/blur_gerrit_mirror/
-     pushinsteadof=ssh://coreid@moto-git/proj/repo01/gerrit/
-     pushinsteadof=ssh://coreid@moto-git:29418/
+     pushinsteadof=ssh://coreid@moto-git01/proj/repo01/blur_gerrit_mirror/
+     pushinsteadof=ssh://coreid@moto-git01/proj/repo01/gerrit/
+     pushinsteadof=ssh://coreid@moto-git01:29418/
      pushinsteadof=ssh://coreid@gerrit.pcs.mot.com:29418/
      pushinsteadof=ssh://coreid@gerrit.mot.com:29418/
-#core config
-#
+[safe]
+     directory = *
 [core]
-	bigfilethreshold=10m
-	editor=vim
+      editor=vim
+#
 #--END--
