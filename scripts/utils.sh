@@ -99,7 +99,7 @@ function usage() {
 	printf "%s%s-l%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}"
 	printf "%s%sinstall all the libs necessary to the tools and services .\\n\\n" "${SPACES}" "${SPACES}"
 	printf "%s%s-p%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}"
-	printf "%s%sinstall Pulsesecure .\\n\\n" "${SPACES}" "${SPACES}"
+	printf "%s%sinstall Any Connect .\\n\\n" "${SPACES}" "${SPACES}"
 	printf "%s%s-A%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}"
 	printf "%s%sinstall Android Studio and makes all the necessary configurations .\\n\\n" "${SPACES}" "${SPACES}"
 	printf "%s%s-c%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}"
