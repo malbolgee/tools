@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #  ████████╗██╗##██╗██╗███╗###██╗██╗##██╗███████╗██╗##██╗██╗███████╗██╗#####██████╗#
 #  ╚══██╔══╝██║##██║██║████╗##██║██║#██╔╝██╔════╝██║##██║██║██╔════╝██║#####██╔══██╗
@@ -41,16 +41,6 @@ else
 	show_error_message "utils.sh"
 fi
 
-function check_flag() {
-	local flag=$1
-	local option=$2
-
-	if [ "$flag" == "true" ]; then
-		loge "$MAIN_LOG_TAG" "Option $option cannot be used along with other options."
-		exit 1
-	fi
-}
-
 function main() {
 
 	local a_flag="false"
@@ -60,99 +50,88 @@ function main() {
 	local l_flag_force="true" # Forces the source of ./libs.sh script.
 
 	declare -a scripts=()
-	declare -x summary=()
+	declare -a summary=()
 
-	if [[ -z $1 ]]; then
-		usage
-		exit 1
+	# Define a dark theme with green accents for whiptail
+	export NEWT_COLORS="
+		root=white,black;
+		window=lightgray,black;
+		border=lightgray,black;
+		shadow=black,black;
+		button=black,green;
+		actbutton=white,green;
+		checkbox=green,black;
+		actcheckbox=black,green;
+		title=green,black;
+		listbox=lightgray,black;
+		actlistbox=black,lightgray;
+	"
+
+	local CHOICES
+	CHOICES=$(whiptail --title "Installation Options" --checklist \
+		"Select the tools to install:" 20 78 12 \
+		"a" "All standard scripts" OFF \
+		"F" "Skip libs.sh (Force)" OFF \
+		"p" "Anyconnect" OFF \
+		"A" "Android Studio" OFF \
+		"c" "VS Code" OFF \
+		"r" "Cybereason" OFF \
+		"v" "Scrcpy" OFF \
+		"t" "Tmux" OFF \
+		"s" "SSH Config" OFF \
+		"i" "Git Config" OFF \
+		"g" "Google Drive" OFF 3>&1 1>&2 2>&3)
+
+	if [ $? -ne 0 ]; then
+		exit 0
 	fi
 
-	while getopts 'aipcrvtsgAFh' opt; do
-		case "$opt" in
-		a)
+	if [[ -z $CHOICES ]]; then
+		exit 0
+	fi
 
-			if [ "${#scripts[@]}" -ne 0 ]; then
-				loge "$MAIN_LOG_TAG" "Option 'a' cannot be used along with other options."
-				exit 1
-			fi
+	if [[ $CHOICES == *'"a"'* ]]; then
+		a_flag="true"
+		scripts+=(
+			./ssh.sh
+			./gitconfig.sh
+			./code.sh
+			./android_studio.sh
+			./cybereasoninstall.sh
+			./anyconnect.sh
+			./scrcpy.sh
+			./tmux.sh
+			./ggdrive.sh
+		)
+	else
+		for choice in $CHOICES; do
+			# Remove quotes
+			choice="${choice%\"}"
+			choice="${choice#\"}"
 
-			scripts+=(
-				./ssh.sh
-				./gitconfig.sh
-				./code.sh
-				./android_studio.sh
-				./cybereasoninstall.sh
-				./anyconnect.sh
-				./scrcpy.sh
-				./tmux.sh
-				./ggdrive.sh
-			)
+			case "$choice" in
+			p) scripts+=(./anyconnect.sh) ;;
+			A) scripts+=(./android_studio.sh) ;;
+			c) scripts+=(./code.sh) ;;
+			r) scripts+=(./cybereasoninstall.sh) ;;
+			v) scripts+=(./scrcpy.sh) ;;
+			t) scripts+=(./tmux.sh) ;;
+			s)
+				s_flag="true"
+				scripts+=(./ssh.sh)
+				;;
+			i)
+				i_flag="true"
+				scripts+=(./gitconfig.sh)
+				;;
+			g) scripts+=(./ggdrive.sh) ;;
+			esac
+		done
+	fi
 
-			a_flag="true"
-			;;
-
-		F)
-			l_flag_force="false"
-			;;
-
-		p)
-			check_flag "$a_flag" "'a'"
-			scripts+=(./anyconnect.sh)
-			;;
-
-		A)
-			check_flag "$a_flag" "'a'"
-			scripts+=(./android_studio.sh)
-			;;
-
-		c)
-			check_flag "$a_flag" "'a'"
-			scripts+=(./code.sh)
-			;;
-
-		r)
-			check_flag "$a_flag" "'a'"
-			scripts+=(./cybereasoninstall.sh)
-			;;
-
-		v)
-			check_flag "$a_flag" "'a'"
-			scripts+=(./scrcpy.sh)
-			;;
-
-		t)
-			check_flag "$a_flag" "'a'"
-			scripts+=(./tmux.sh)
-			;;
-
-		s)
-			check_flag "$a_flag" "'a'"
-			s_flag="true"
-			scripts+=(./ssh.sh)
-			;;
-
-		i)
-			check_flag "$a_flag" "'a'"
-			i_flag="true"
-			scripts+=(./gitconfig.sh)
-			;;
-
-		g)
-			check_flag "$a_flag" "'a'"
-			scripts+=(./ggdrive.sh)
-			;;
-
-		h)
-			usage
-			exit 1
-			;;
-
-		*)
-			usage
-			exit 1
-			;;
-		esac
-	done
+	if [[ $CHOICES == *'"F"'* ]]; then
+		l_flag_force="false"
+	fi
 
 	# only ask for core id if we need it
 	if [[ "$a_flag" == "true" || "$s_flag" == "true" || "$i_flag" == true ]]; then
@@ -181,7 +160,4 @@ function main() {
 	done
 }
 
-main "$1"
-
-unset COREID
-unset MAIN_LOADED
+main "$@"
