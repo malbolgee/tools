@@ -7,15 +7,35 @@ fi
 
 # Install all the libs necessary for the other packages to properly run.
 function install_libs() {
-	sudo apt update && sudo apt -y upgrade
-	sudo apt -yf install git wget
-	sudo apt -yf install curl apt-transport-https vim pip llvm clang net-tools lolcat
-	sudo apt -yf install default-jre default-jdk sqlitebrowser libnss3-tools
-	sudo apt -yf install build-essential linux-headers-"$(uname -r)"
+    local packages=(
+        curl
+        vim
+        pip
+        apt-transport-https
+        llvm
+        clang
+        net-tools
+        lolcat
+        default-jre
+        default-jdk
+        sqlitebrowser
+        libnss3-tools
+        build-essential
+        linux-headers-"$(uname -r)"
+    )
 
-	summary+=("The necessary packages has been installed")
+    echo "Updating package list and upgrading system..."
+    # Using apt-get for stable scripting and DEBIAN_FRONTEND=noninteractive for automation
+    if sudo DEBIAN_FRONTEND=noninteractive apt-get update &&
+        sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y &&
+        sudo DEBIAN_FRONTEND=noninteractive apt-get install -yf "${packages[@]}"; then
+        summary+=("The necessary packages have been installed")
+    else
+        echo "Error: Package installation failed."
+        return 1
+    fi
 }
 
 if ! is_on_server; then
-	install_libs
+    install_libs
 fi
