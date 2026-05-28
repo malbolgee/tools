@@ -1,69 +1,41 @@
-## Tools
+# Workspace Setup Tools
 
-This repository is a set of scripts aiming to help to easily create the development workspace needed for the team.
+This repository provides a set of scripts to easily provision the development workspace needed for the team.
 
-In the scripts/ directory you will find several scripts in which the entry point is the ```main.sh``` file.
+## Prerequisites
 
-Maybe you'll need to make this script executable:
+- **OS:** Ubuntu/Debian-based Linux distribution.
+- **Permissions:** `sudo` privileges are required for several installations.
+
+## Usage
+
+Navigate to the `scripts/` directory and make the main script executable:
 
 ```shell
+$ cd scripts/
 $ chmod +x main.sh
 ```
 
-After that:
+After that, run the script:
 
 ```shell
 $ ./main.sh
 ```
 
-This script has several flags of options:
+The script will open a `whiptail` interactive checklist where you can select the tools you want to install. Use the **Spacebar** to select/deselect items and **Enter** to confirm your selection.
 
-> **-a** - Install everything.<br>
-> **-p** - Install the PulseSecure program.<br>
-> **-A** - Install Android Studio.<br>
-> **-c** - Install Visual Studio Code.<br>
-> **-r** - Install Sentinel One .<br>
-> **-v** - Install scrcpy program.<br>
-> **-s** - Create the ssh key.<br>
-> **-i** - Create the gitconfig file.<br>
-> **-g** - Install the ggdrive utility.<br>
-> **-h** - Show how to use the program.<br>
+### Available Options:
 
-So, this is a valid use of the script:
+- **a**: All standard scripts (installs SSH, Git Config, VS Code, Android Studio, Sentinel One, Anyconnect, Scrcpy, Tmux, and Google Drive).
+- **F**: Skip `libs.sh` (Force skip of basic library installation).
+- **p**: Install Anyconnect.
+- **A**: Install Android Studio.
+- **c**: Install Visual Studio Code.
+- **r**: Install Sentinel One.
+- **v**: Install Scrcpy.
+- **t**: Install Tmux.
+- **s**: Configure SSH.
+- **i**: Configure Git.
+- **g**: Install Google Drive utility.
 
-```shell
-$ ./main.sh -a
-```
-
-This command will install everything. Be aware that sometimes you'll have to give **yes** or no answers to the prompt, so you can't just run the script and go lunch.
-
-Or you can choose several flags at once to use. The below usage is also valid.
-
-```bash
-$ ./main -tsr
-```
-
-**The 'a' option cannot be used with other options.**
-
-## The Android Studio Installation
-
-The Android Studio installation can be triggered by choosing the ```-a``` flag, or by specifically selecting to install only this program with the ```-A``` flag. The script will download the most up-to-date Android Studio binary from its repository and, at some point, will question you if you want to install it. It is recommended to say yes to this question because after the installation, we export the *platform-tools* directory to ```$PATH```, so you can access tools such as ```adb``` and ```fastboot```.
-
-## The SSH configuration
-
-This script will set a SSH key into your machine. This is necessary to access tools such as ```Gerrit``` and to make it easier to login into the *build server*. Follow [this tutorial](https://docs.google.com/document/d/1UFVoLMMWVDtZdRW41DAtouhqyThGHwrxl9KKC4NWihY/edit#) to configure Gerrit with your SSH key.
-
-After this script run, you'll be able to login into the build server just by typing:
-
-```shell
-$ ssh indt
-```
-
-### Set your SSH key into the build server
-
-To set your SSH key into the build server and free yourself of the need to type your user and password every time, simply:
-
-```shell
-$ ssh-copy-id -i <path/to/your/key/id_coreid>.pub <indt|indt-br>
-```
-
+**Note:** If you select the **'a'** option, it will automatically include all standard scripts regardless of other individual selections.
