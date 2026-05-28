@@ -1,0 +1,23 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/jammy64"
+  
+  # Enable X11 forwarding to test the GUI on your host machine
+  config.ssh.forward_x11 = true 
+  
+  # Mount the scripts folder
+  config.vm.synced_folder ".", "/home/vagrant/scripts"
+  # Mount the assets folder (assumed to be one level up from scripts)
+  config.vm.synced_folder "../.assets", "/home/vagrant/.assets"
+
+  # Install GUI dependencies missing in the minimal server box
+  config.vm.provision "shell", inline: <<-SHELL
+    apt-get update
+    apt-get install -y libxrender1 libxtst6 libxi6 libfontconfig1 libgtk-3-0
+  SHELL
+
+  # Increase memory to handle Android Studio comfortably
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "4096"
+    vb.cpus = 2
+  end
+end
