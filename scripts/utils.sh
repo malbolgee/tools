@@ -16,6 +16,7 @@ function path_export() {
 
 	if [ ! -d "$line" ]; then
 		loge "${UTILS_LOG_TAG}" "The directory $1 does not exist. Unable to put it into PATH."
+		return 1
 	fi
 
 	_put_line_in_file "export PATH=$line:\$PATH" "$BASHRC_PATH"
@@ -57,12 +58,18 @@ function _put_line_in_file() {
 }
 
 function stop_service() {
-	logi "${UTILS_LOG_TAG}" "Trying to stop ${1} service"
-	sudo systemctl stop "$1".service
-	logi "${UTILS_LOG_TAG}" "Trying to disable ${1} service"
-	sudo systemctl disable "$1".service
-	logi "${UTILS_LOG_TAG}" "Trying to mask ${1} service"
-	sudo systemctl mask "${1}".service
+	local service_name="$1"
+	if ! systemctl list-unit-files "${service_name}.service" >/dev/null 2>&1; then
+		logw "${UTILS_LOG_TAG}" "Service ${service_name} not found. Skipping stop/disable."
+		return 0
+	fi
+
+	logi "${UTILS_LOG_TAG}" "Trying to stop ${service_name} service"
+	sudo systemctl stop "${service_name}.service"
+	logi "${UTILS_LOG_TAG}" "Trying to disable ${service_name} service"
+	sudo systemctl disable "${service_name}.service"
+	logi "${UTILS_LOG_TAG}" "Trying to mask ${service_name}.service"
+	sudo systemctl mask "${service_name}.service"
 }
 
 function prompt_coreid_question() {
