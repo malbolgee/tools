@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ -z "${MAIN_LOADED-}" ]; then
     echo "The script must be accessed from main.sh"
@@ -29,7 +29,7 @@ function install_libs() {
     if sudo DEBIAN_FRONTEND=noninteractive apt-get update &&
         sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y &&
         sudo DEBIAN_FRONTEND=noninteractive apt-get install -yf "${packages[@]}"; then
-        summary+=("The necessary packages have been installed")
+        return 0
     else
         echo "Error: Package installation failed."
         return 1
@@ -37,5 +37,9 @@ function install_libs() {
 }
 
 if ! is_on_server; then
-    install_libs
+    if install_libs; then
+        summary+=("The necessary packages have been installed")
+    else
+        echo "Error: Package installation failed."
+    fi
 fi

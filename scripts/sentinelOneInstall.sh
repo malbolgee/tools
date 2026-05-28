@@ -26,7 +26,7 @@ function install_sentinel_one() {
     local extract_dir="${temp_dir}/extracted"
 
     # Step 1: Ensure dependencies are met
-    _ensure_dependencies
+    _ensure_dependencies || return 1
 
     # Step 2: Download the archive
     if ! _download_archive "${download_url}" "${archive_path}"; then
@@ -36,7 +36,7 @@ function install_sentinel_one() {
     fi
 
     # Step 3: Extract the archive
-    mkdir -p "${extract_dir}"
+    mkdir -p "${extract_dir}" || return 1
     if ! tar -xzf "${archive_path}" -C "${extract_dir}"; then
         logi "${SENTINEL_LOG_TAG}" "Failed to extract Sentinel One archive."
         rm -rf "${temp_dir}"
@@ -53,9 +53,7 @@ function install_sentinel_one() {
         return 1
     fi
 
-    if _install_package "${deb_package}"; then
-        summary+=("Sentinel One has been installed successfully")
-    else
+    if ! _install_package "${deb_package}"; then
         logi "${SENTINEL_LOG_TAG}" "Sentinel One installation failed."
         rm -rf "${temp_dir}"
         return 1
@@ -78,8 +76,8 @@ function _ensure_dependencies() {
 
     if [[ ${#missing_deps[@]} -gt 0 ]]; then
         logi "${SENTINEL_LOG_TAG}" "Installing missing dependencies: ${missing_deps[*]}"
-        sudo apt-get update -yq
-        sudo apt-get install -yq "${missing_deps[@]}"
+        sudo apt-get update -yq || return 1
+        sudo apt-get install -yq "${missing_deps[@]}" || return 1
     fi
 }
 
@@ -92,7 +90,7 @@ function _download_archive() {
         --content-disposition \
         --show-progress \
         -O "${output}" \
-        "${url}"
+        "${url}" || return 1
 }
 
 function _install_package() {
@@ -101,13 +99,13 @@ function _install_package() {
     logi "${SENTINEL_LOG_TAG}" "Installing package: $(basename "${package_path}")"
 
     # Using apt-get install to handle potential dependencies automatically
-    if sudo DEBIAN_FRONTEND=noninteractive apt-get install -yq "${package_path}"; then
-        logi "${SENTINEL_LOG_TAG}" "Sentinel One installation complete."
-        return 0
-    else
-        return 1
-    fi
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -yq "${package_path}" || return 1
+    logi "${SENTINEL_LOG_TAG}" "Sentinel One installation complete."
 }
 
 # Run the installation
-install_sentinel_one
+if install_sentinel_one; then
+    summary+=("Sentinel One has been installed successfully")
+else
+    loge "${SENTINEL_LOG_TAG}" "Installation failed."
+fi

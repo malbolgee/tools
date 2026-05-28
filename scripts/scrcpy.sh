@@ -15,7 +15,7 @@ function install_scrcpy() {
 
     local ubuntu_version
     ubuntu_version=$(lsb_release -rs 2>/dev/null || grep -oP '(?<=^VERSION_ID=").*(?=")' /etc/os-release || echo "0")
-    
+
     local scrcpy_branch="v3.3.4"
     local use_sdl3=false
 
@@ -43,7 +43,6 @@ function install_scrcpy() {
     fi
 
     logi "${SCRCPY_LOG_TAG}" "scrcpy installation is done"
-    summary+=("scrcpy has been installed")
 }
 
 function _install_required_packages() {
@@ -82,22 +81,22 @@ function _install_required_packages() {
     fi
 
     # Install packages non-interactively to prevent blocking prompts
-    sudo DEBIAN_FRONTEND=noninteractive apt-get install -yq "${packages[@]}"
+    sudo DEBIAN_FRONTEND=noninteractive apt-get install -yq "${packages[@]}" || return 1
 }
 
 function _clone_repository() {
     local branch="$1"
     logi "${SCRCPY_LOG_TAG}" "Cloning scrcpy repository (branch: ${branch})"
-    
-    mkdir -p "${REPOS_DIR}"
+
+    mkdir -p "${REPOS_DIR}" || return 1
 
     # Clean up existing directory to ensure a fresh clone
     if [ -d "${SCRCPY_DIR}" ]; then
         logi "${SCRCPY_LOG_TAG}" "Directory ${SCRCPY_DIR} already exists. Cleaning up."
-        rm -rf "${SCRCPY_DIR}"
+        rm -rf "${SCRCPY_DIR}" || return 1
     fi
 
-    git clone --depth=1 --branch="${branch}" --single-branch "${GITHUB_REPO_URL}" "${SCRCPY_DIR}"
+    git clone --depth=1 --branch="${branch}" --single-branch "${GITHUB_REPO_URL}" "${SCRCPY_DIR}" || return 1
 }
 
 function _build_and_install() {
@@ -107,17 +106,21 @@ function _build_and_install() {
     # Use a subshell to encapsulate environment variables and working directory changes safely
     (
         cd "${SCRCPY_DIR}" || return 1
-        
+
         # Exit subshell immediately if any build/install command fails
         set -e
-        
+
         logi "${SCRCPY_LOG_TAG}" "Downloading prebuilt scrcpy-server for ${branch}..."
         wget -qO "scrcpy-server-${branch}" "https://github.com/Genymobile/scrcpy/releases/download/${branch}/scrcpy-server-${branch}"
 
         meson setup x --buildtype=release --strip -Db_lto=true -Dprebuilt_server="scrcpy-server-${branch}"
         ninja -Cx
         sudo ninja -Cx install
-    )
+    ) || return 1
 }
 
-install_scrcpy
+if install_scrcpy; then
+    summary+=("scrcpy has been installed")
+else
+    loge "${SCRCPY_LOG_TAG}" "Installation failed."
+fi

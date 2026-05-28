@@ -16,39 +16,39 @@ function install_adrive() {
 
     if ! is_package_installed python3; then
         loge "${DRIVE_LOG_TAG}" "python3 is not installed. Please install it first."
-        exit 1
+        return 1
     fi
 
-    _clone_repository
-    _execute_install
+    _clone_repository || return 1
+    _execute_install || return 1
 
     logi "${DRIVE_LOG_TAG}" "adrive install is done"
-
-    summary+=("adrive tool has been installed")
 }
 
 function _clone_repository() {
     logi "${DRIVE_LOG_TAG}" "Cloning adrive repository"
     if [ ! -d "${REPOS_DIRECTORY}" ]; then
         logi "${DRIVE_LOG_TAG}" "${REPOS_DIRECTORY} directory does not exist, creating it"
-        mkdir -p "${REPOS_DIRECTORY}"
+        mkdir -p "${REPOS_DIRECTORY}" || return 1
     fi
 
     if [ -d "${REPOS_DIRECTORY}/${ADRIVE_DIRECTORY}" ]; then
         logi "${DRIVE_LOG_TAG}" "Directory ${REPOS_DIRECTORY}/${ADRIVE_DIRECTORY} already exists. Cleaning up."
-        rm -rf "${REPOS_DIRECTORY:?}/${ADRIVE_DIRECTORY:?}"
+        rm -rf "${REPOS_DIRECTORY:?}/${ADRIVE_DIRECTORY:?}" || return 1
     fi
 
-    git clone "${GITHUB_REPO_LINK}" "${REPOS_DIRECTORY}/${ADRIVE_DIRECTORY}"
+    git clone "${GITHUB_REPO_LINK}" "${REPOS_DIRECTORY}/${ADRIVE_DIRECTORY}" || return 1
 }
 
 function _execute_install() {
     logi "${DRIVE_LOG_TAG}" "Executing adrive install script"
-    (
-        cd "${REPOS_DIRECTORY}/${ADRIVE_DIRECTORY}" || exit 1
-        chmod +x install.sh
-        ./install.sh
-    )
+    cd "${REPOS_DIRECTORY}/${ADRIVE_DIRECTORY}" || return 1
+    chmod +x install.sh || return 1
+    ./install.sh || return 1
 }
 
-install_adrive
+if install_adrive; then
+    summary+=("adrive tool has been installed")
+else
+    loge "${DRIVE_LOG_TAG}" "Installation failed."
+fi

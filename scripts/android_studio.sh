@@ -30,7 +30,6 @@ function install_android_studio() {
     stop_service fwupd
 
     logi "${ANDROID_LOG_TAG}" "Android Studio Setup is done."
-    summary+=("Android Studio has been installed")
 }
 
 function _add_ppa() {
@@ -131,5 +130,8 @@ function launch_android_studio_and_export() {
     path_export "${SDK_PLATFORM_TOOLS}"
 }
 
-# Wrap execution to prevent set -e in main.sh from aborting the whole script if this module fails.
-install_android_studio || loge "${ANDROID_LOG_TAG}" "Installation failed."
+if install_android_studio; then
+    summary+=("Android Studio has been installed")
+else
+    loge "${ANDROID_LOG_TAG}" "Installation failed."
+fi
