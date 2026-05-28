@@ -112,7 +112,7 @@ function usage() {
 	printf "%s%s-c%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}"
 	printf "%s%sinstall Visual Studio Code .\\n\\n" "${SPACES}" "${SPACES}"
 	printf "%s%s-r%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}"
-	printf "%s%sinstall Cybereason .\\n\\n" "${SPACES}" "${SPACES}"
+	printf "%s%sinstall Sentinel One .\\n\\n" "${SPACES}" "${SPACES}"
 	printf "%s%s-v%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}"
 	printf "%s%sinstall scrcpy .\\n\\n" "${SPACES}" "${SPACES}"
 	printf "%s%s-t%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}"

@@ -75,7 +75,7 @@ function main() {
 		"p" "Anyconnect" OFF \
 		"A" "Android Studio" OFF \
 		"c" "VS Code" OFF \
-		"r" "Cybereason" OFF \
+		"r" "Sentinel One" OFF \
 		"v" "Scrcpy" OFF \
 		"t" "Tmux" OFF \
 		"s" "SSH Config" OFF \
@@ -97,7 +97,7 @@ function main() {
 			./gitconfig.sh
 			./code.sh
 			./android_studio.sh
-			./cybereasoninstall.sh
+			./sentinelOneInstall.sh
 			./anyconnect.sh
 			./scrcpy.sh
 			./tmux.sh
@@ -113,7 +113,7 @@ function main() {
 			p) scripts+=(./anyconnect.sh) ;;
 			A) scripts+=(./android_studio.sh) ;;
 			c) scripts+=(./code.sh) ;;
-			r) scripts+=(./cybereasoninstall.sh) ;;
+			r) scripts+=(./sentinelOneInstall.sh) ;;
 			v) scripts+=(./scrcpy.sh) ;;
 			t) scripts+=(./tmux.sh) ;;
 			s)

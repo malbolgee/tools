@@ -22,15 +22,17 @@ This script has several flags of options:
 > **-p** - Install the PulseSecure program.<br>
 > **-A** - Install Android Studio.<br>
 > **-c** - Install Visual Studio Code.<br>
-> **-r** - Install Cyberreason program.<br>
+> **-r** - Install Sentinel One .<br>
 > **-v** - Install scrcpy program.<br>
-> **-s** - Create the ssh key.<br>**-i** - Create the gitconfig file.<br>**-g** - Install the ggdrive utility.<br>
+> **-s** - Create the ssh key.<br>
+> **-i** - Create the gitconfig file.<br>
+> **-g** - Install the ggdrive utility.<br>
 > **-h** - Show how to use the program.<br>
 
 So, this is a valid use of the script:
 
 ```shell
-$ ./main -a
+$ ./main.sh -a
 ```
 
 This command will install everything. Be aware that sometimes you'll have to give **yes** or no answers to the prompt, so you can't just run the script and go lunch.
