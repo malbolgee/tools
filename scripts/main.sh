@@ -69,7 +69,7 @@ function main() {
 
 	local CHOICES
 	CHOICES=$(whiptail --title "Installation Options" --checklist \
-		"Select the tools to install:" 20 78 12 \
+		"Select the tools to install:" 20 78 11 \
 		"a" "All standard scripts" OFF \
 		"F" "Skip libs.sh (Force)" OFF \
 		"p" "Anyconnect" OFF \
@@ -80,7 +80,7 @@ function main() {
 		"t" "Tmux" OFF \
 		"s" "SSH Config" OFF \
 		"i" "Git Config" OFF \
-		"g" "Google Drive" OFF 3>&1 1>&2 2>&3)
+		"d" "Adrive" OFF 3>&1 1>&2 2>&3)
 
 	if [ $? -ne 0 ]; then
 		exit 0
@@ -101,7 +101,7 @@ function main() {
 			./anyconnect.sh
 			./scrcpy.sh
 			./tmux.sh
-			./ggdrive.sh
+			./adrive.sh
 		)
 	else
 		for choice in $CHOICES; do
@@ -124,7 +124,7 @@ function main() {
 				i_flag="true"
 				scripts+=(./gitconfig.sh)
 				;;
-			g) scripts+=(./ggdrive.sh) ;;
+			d) scripts+=(./adrive.sh) ;;
 			esac
 		done
 	fi

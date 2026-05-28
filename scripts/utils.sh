@@ -121,8 +121,8 @@ function usage() {
 	printf "%s%sconfigure ssh settings .\\n\\n" "${SPACES}" "${SPACES}"
 	printf "%s%s-i%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}"
 	printf "%s%sconfigure the gitconfig file .\\n\\n" "${SPACES}" "${SPACES}"
-	printf "%s%s-g%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}"
-	printf "%s%sinstall ggdrive utility .\\n\\n" "${SPACES}" "${SPACES}"
+	printf "%s%s-d%s\\n" "${SPACES}" "${BOLD}" "${NORMAL}"
+	printf "%s%sinstall adrive utility .\\n\\n" "${SPACES}" "${SPACES}"
 }
 
 function is_package_installed() {

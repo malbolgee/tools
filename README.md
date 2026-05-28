@@ -26,7 +26,7 @@ The script will open a `whiptail` interactive checklist where you can select the
 
 ### Available Options:
 
-- **a**: All standard scripts (installs SSH, Git Config, VS Code, Android Studio, Sentinel One, Anyconnect, Scrcpy, Tmux, and Google Drive).
+- **a**: All standard scripts.
 - **F**: Skip `libs.sh` (Force skip of basic library installation).
 - **p**: Install Anyconnect.
 - **A**: Install Android Studio.
@@ -36,6 +36,6 @@ The script will open a `whiptail` interactive checklist where you can select the
 - **t**: Install Tmux.
 - **s**: Configure SSH.
 - **i**: Configure Git.
-- **g**: Install Google Drive utility.
+- **d**: Install Adrive (Google Drive client).
 
 **Note:** If you select the **'a'** option, it will automatically include all standard scripts regardless of other individual selections.
